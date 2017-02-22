@@ -1,0 +1,37 @@
+StatsBundle\Entity\RealLeague:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\RealLeagueRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        real_teams:
+            targetEntity: RealTeam
+            mappedBy: real_league
+    oneToMany:
+        real_matches:
+            targetEntity: RealMatch
+            mappedBy: real_match
+    fields:
+        name:
+            type: string
+            length: 255
+        country:
+            type: string
+            length: 255
+        teamAmount:
+            type: smallint
+            column: team_amount
+        mpgId:
+            type: integer
+            column: mpg_id
+        upcomingWeek:
+            type: smallint
+            column: upcoming_week
+        season:
+            type: integer
+    lifecycleCallbacks: {  }

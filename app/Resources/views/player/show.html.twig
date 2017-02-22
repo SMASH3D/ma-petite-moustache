@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Player</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ player.id }}</td>
+            </tr>
+            <tr>
+                <th>Realleagueid</th>
+                <td>{{ player.realLeagueId }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ player.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ player.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ player.role }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ player.price }}</td>
+            </tr>
+            <tr>
+                <th>Realteamid</th>
+                <td>{{ player.realTeamId }}</td>
+            </tr>
+            <tr>
+                <th>Joinedat</th>
+                <td>{% if player.joinedAt %}{{ player.joinedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Averagegrade</th>
+                <td>{{ player.averageGrade }}</td>
+            </tr>
+            <tr>
+                <th>Averagegradealltime</th>
+                <td>{{ player.averageGradeAllTime }}</td>
+            </tr>
+            <tr>
+                <th>Lowestgrade</th>
+                <td>{{ player.lowestGrade }}</td>
+            </tr>
+            <tr>
+                <th>Highestgrade</th>
+                <td>{{ player.highestGrade }}</td>
+            </tr>
+            <tr>
+                <th>Mostfrequentgrade</th>
+                <td>{{ player.mostFrequentGrade }}</td>
+            </tr>
+            <tr>
+                <th>Injured</th>
+                <td>{% if player.injured %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Injureduntil</th>
+                <td>{% if player.injuredUntil %}{{ player.injuredUntil|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Suspended</th>
+                <td>{% if player.suspended %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Suspendeduntilweek</th>
+                <td>{{ player.suspendedUntilWeek }}</td>
+            </tr>
+            <tr>
+                <th>Seasongoals</th>
+                <td>{{ player.seasonGoals }}</td>
+            </tr>
+            <tr>
+                <th>Seasonassists</th>
+                <td>{{ player.seasonAssists }}</td>
+            </tr>
+            <tr>
+                <th>Injuriescount</th>
+                <td>{{ player.injuriesCount }}</td>
+            </tr>
+            <tr>
+                <th>Exclusions</th>
+                <td>{{ player.exclusions }}</td>
+            </tr>
+            <tr>
+                <th>Seasonyellowcards</th>
+                <td>{{ player.seasonYellowCards }}</td>
+            </tr>
+            <tr>
+                <th>Seasonredcards</th>
+                <td>{{ player.seasonRedCards }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeyellowcards</th>
+                <td>{{ player.allTimeYellowCards }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeredcards</th>
+                <td>{{ player.allTimeRedCards }}</td>
+            </tr>
+            <tr>
+                <th>Alltimegoals</th>
+                <td>{{ player.allTimeGoals }}</td>
+            </tr>
+            <tr>
+                <th>Yearofbirth</th>
+                <td>{{ player.yearOfBirth }}</td>
+            </tr>
+            <tr>
+                <th>Leftat</th>
+                <td>{% if player.leftAt %}{{ player.leftAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Seasoninjuries</th>
+                <td>{{ player.seasonInjuries }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeassists</th>
+                <td>{{ player.allTimeAssists }}</td>
+            </tr>
+            <tr>
+                <th>Seasonowngoals</th>
+                <td>{{ player.seasonOwnGoals }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeowngoals</th>
+                <td>{{ player.allTimeOwnGoals }}</td>
+            </tr>
+            <tr>
+                <th>Seasonminutesplayed</th>
+                <td>{{ player.seasonMinutesPlayed }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeminutesplayed</th>
+                <td>{{ player.allTimeMinutesPlayed }}</td>
+            </tr>
+            <tr>
+                <th>Seasonstarts</th>
+                <td>{{ player.seasonStarts }}</td>
+            </tr>
+            <tr>
+                <th>Seasonentries</th>
+                <td>{{ player.seasonEntries }}</td>
+            </tr>
+            <tr>
+                <th>Alltimestarts</th>
+                <td>{{ player.allTimeStarts }}</td>
+            </tr>
+            <tr>
+                <th>Alltimeentries</th>
+                <td>{{ player.allTimeEntries }}</td>
+            </tr>
+            <tr>
+                <th>Away</th>
+                <td>{% if player.away %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Awayuntil</th>
+                <td>{% if player.awayUntil %}{{ player.awayUntil|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Alltimeunavailabilityweeks</th>
+                <td>{{ player.allTimeUnavailabilityWeeks }}</td>
+            </tr>
+            <tr>
+                <th>Seasonsplayed</th>
+                <td>{{ player.seasonsPlayed }}</td>
+            </tr>
+            <tr>
+                <th>Nationality</th>
+                <td>{{ player.nationality }}</td>
+            </tr>
+            <tr>
+                <th>Captain</th>
+                <td>{% if player.captain %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('player_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('player_edit', { 'id': player.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

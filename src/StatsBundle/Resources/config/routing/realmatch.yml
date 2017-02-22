@@ -1,0 +1,12 @@
+realmatch_index:
+    path:     /
+    defaults: { _controller: "StatsBundle:RealMatch:index" }
+    methods:  GET
+
+realmatch_show:
+    path:     /{id}/show
+    defaults: { _controller: "StatsBundle:RealMatch:show" }
+    methods:  GET
+
+
+

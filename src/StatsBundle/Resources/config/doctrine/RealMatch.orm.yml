@@ -1,0 +1,70 @@
+StatsBundle\Entity\RealMatch:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\RealMatchRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        real_league:
+            targetEntity: RealLeague
+            inversedBy: real_matches
+            joinColumn:
+                name: real_league_id
+                referencedColumnName: id
+    manyToOne:
+        home_team:
+            targetEntity: RealTeam
+            inversedBy: home_teams
+            joinColumn:
+                name: home_team_id
+                referencedColumnName: id
+    manyToOne:
+        away_team:
+            targetEntity: RealTeam
+            inversedBy: away_teams
+            joinColumn:
+                name: away_team_id
+                referencedColumnName: id
+    oneToMany:
+        real_player_matches:
+            targetEntity: PlayerRealMatch
+            mappedBy: real_match
+    fields:
+        realLeagueId:
+            type: integer
+            column: real_league_id
+        mpgId:
+            type: integer
+            column: mpg_id
+        homeTeamId:
+            type: integer
+            column: home_team_id
+        awayTeamId:
+            type: integer
+            column: away_team_id
+        homeTeamRank:
+            type: smallint
+            column: home_team_rank
+        awayTeamRank:
+            type: smallint
+            column: away_team_rank
+        homeTeamScore:
+            type: smallint
+            column: home_team_score
+        awayTeamScore:
+            type: smallint
+            column: away_team_score
+        played:
+            type: boolean
+            column: played
+            options:
+                default: 0
+        week:
+            type: smallint
+        date:
+            type: datetime
+    lifecycleCallbacks: {  }

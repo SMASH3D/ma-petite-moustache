@@ -1,0 +1,81 @@
+StatsBundle\Entity\RealTeam:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\RealTeamRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        real_league:
+            targetEntity: RealLeague
+            inversedBy: real_teams
+            joinColumn:
+                name: real_league_id
+                referencedColumnName: id
+    oneToMany:
+        real_matches:
+            targetEntity: RealMatch
+            mappedBy: real_team
+    fields:
+        name:
+            type: string
+            length: 255
+        country:
+            type: string
+            length: 255
+        rank:
+            type: smallint
+            nullable: true
+        matchesPlayed:
+            type: smallint
+            nullable: true
+            column: matches_played
+        seasonGoalsTaken:
+            type: smallint
+            column: season_goals_taken
+        seasonGoalsScored:
+            type: smallint
+            column: season_goals_scored
+        seasonVictories:
+            type: smallint
+            column: season_victories
+        seasonDraws:
+            type: smallint
+            column: season_draws
+        seasonDefeats:
+            type: smallint
+            column: season_defeats
+        seasonGoalsTakenHome:
+            type: smallint
+            column: season_goals_taken_home
+        seasonGoalsScoredHome:
+            type: smallint
+            column: season_goals_scored_home
+        seasonVictoriesHome:
+            type: smallint
+            column: season_victories_home
+        seasonDrawsHome:
+            type: smallint
+            column: season_draws_home
+        seasonDefeatsHome:
+            type: smallint
+            column: season_defeats_home
+        seasonGoalsTakenAway:
+            type: smallint
+            column: season_goals_taken_away
+        seasonGoalsScoredAway:
+            type: smallint
+            column: season_goals_scored_away
+        seasonVictoriesAway:
+            type: smallint
+            column: season_victories_away
+        seasonDrawsAway:
+            type: smallint
+            column: season_draws_away
+        seasonDefeatsAway:
+            type: smallint
+            column: season_defeats_away
+    lifecycleCallbacks: {  }

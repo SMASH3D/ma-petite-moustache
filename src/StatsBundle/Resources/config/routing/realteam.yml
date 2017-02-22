@@ -1,0 +1,12 @@
+realteam_index:
+    path:     /
+    defaults: { _controller: "StatsBundle:RealTeam:index" }
+    methods:  GET
+
+realteam_show:
+    path:     /{id}/show
+    defaults: { _controller: "StatsBundle:RealTeam:show" }
+    methods:  GET
+
+
+

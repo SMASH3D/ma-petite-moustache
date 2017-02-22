@@ -1,0 +1,156 @@
+StatsBundle\Entity\Player:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\PlayerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        real_league:
+            targetEntity: RealLeague
+            inversedBy: players
+            joinColumn:
+                name: real_league_id
+                referencedColumnName: id
+    fields:
+        realLeagueId:
+            type: integer
+            nullable: true
+            column: real_league_id
+        firstname:
+            type: string
+            length: 255
+        lastname:
+            type: string
+            length: 255
+        role:
+            type: string
+            length: 255
+        price:
+            type: smallint
+            nullable: true
+        realTeamId:
+            type: integer
+            column: real_team_id
+        joinedAt:
+            type: datetime
+            nullable: true
+            column: joined_at
+        averageGrade:
+            type: float
+            nullable: true
+            column: average_grade
+        averageGradeAllTime:
+            type: float
+            nullable: true
+            column: average_grade_all_time
+        lowestGrade:
+            type: float
+            nullable: true
+            column: lowest_grade
+        highestGrade:
+            type: float
+            nullable: true
+            column: highest_grade
+        mostFrequentGrade:
+            type: float
+            nullable: true
+            column: most_frequent_grade
+        injured:
+            type: boolean
+        injuredUntil:
+            type: datetime
+            nullable: true
+            column: injured_until
+        suspended:
+            type: boolean
+        suspendedUntilWeek:
+            type: smallint
+            nullable: true
+            column: suspended_until_week
+        seasonGoals:
+            type: smallint
+            column: season_goals
+        seasonAssists:
+            type: smallint
+            column: season_assists
+        injuriesCount:
+            type: smallint
+            column: injuries_count
+        exclusions:
+            type: smallint
+        seasonYellowCards:
+            type: smallint
+            column: season_yellow_cards
+        seasonRedCards:
+            type: smallint
+            column: season_red_cards
+        allTimeYellowCards:
+            type: smallint
+            column: all_time_yellow_cards
+        allTimeRedCards:
+            type: smallint
+            column: all_time_red_cards
+        allTimeGoals:
+            type: smallint
+            column: all_time_goals
+        yearOfBirth:
+            type: smallint
+            nullable: true
+            column: year_of_birth
+        leftAt:
+            type: datetime
+            nullable: true
+            column: left_at
+        seasonInjuries:
+            type: smallint
+            column: season_injuries
+        allTimeAssists:
+            type: smallint
+            column: all_time_assists
+        seasonOwnGoals:
+            type: smallint
+            column: season_own_goals
+        allTimeOwnGoals:
+            type: smallint
+            column: all_time_own_goals
+        seasonMinutesPlayed:
+            type: smallint
+            column: season_minutes_played
+        allTimeMinutesPlayed:
+            type: smallint
+            column: all_time_minutes_played
+        seasonStarts:
+            type: smallint
+            column: season_starts
+        seasonEntries:
+            type: smallint
+            column: season_entries
+        allTimeStarts:
+            type: smallint
+            column: all_time_starts
+        allTimeEntries:
+            type: smallint
+            column: all_time_entries
+        away:
+            type: boolean
+        awayUntil:
+            type: datetime
+            nullable: true
+            column: away_until
+        allTimeUnavailabilityWeeks:
+            type: smallint
+            column: all_time_unavailability_weeks
+        seasonsPlayed:
+            type: smallint
+            column: seasons_played
+        nationality:
+            type: string
+            length: 255
+            nullable: true
+        captain:
+            type: boolean
+    lifecycleCallbacks: {  }

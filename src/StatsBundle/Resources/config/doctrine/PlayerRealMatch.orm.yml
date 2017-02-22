@@ -1,0 +1,47 @@
+StatsBundle\Entity\PlayerRealMatch:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\PlayerRealMatchRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        real_match:
+            targetEntity: RealMatch
+            inversedBy: real_matches
+            joinColumn:
+                name: real_match_id
+                referencedColumnName: id
+
+    fields:
+        hasStarted:
+            type: boolean
+            column: has_started
+        hasEntered:
+            type: boolean
+            column: has_entered
+        yellowCards:
+            type: smallint
+            column: yellow_cards
+        redCard:
+            type: boolean
+            column: red_card
+        goals:
+            type: smallint
+        assists:
+            type: smallint
+        ownGoal:
+            type: smallint
+            column: own_goal
+        rating:
+            type: float
+        minutesPlayed:
+            type: smallint
+            column: minutes_played
+        errorsLeadingToGoal:
+            type: smallint
+            column: errors_leading_to_goal
+    lifecycleCallbacks: {  }

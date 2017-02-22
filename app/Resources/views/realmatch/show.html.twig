@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Realmatch</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ realMatch.id }}</td>
+            </tr>
+            <tr>
+                <th>Realleagueid</th>
+                <td>{{ realMatch.realLeagueId }}</td>
+            </tr>
+            <tr>
+                <th>Hometeamid</th>
+                <td>{{ realMatch.homeTeamId }}</td>
+            </tr>
+            <tr>
+                <th>Awayteamid</th>
+                <td>{{ realMatch.awayTeamId }}</td>
+            </tr>
+            <tr>
+                <th>Hometeamrank</th>
+                <td>{{ realMatch.homeTeamRank }}</td>
+            </tr>
+            <tr>
+                <th>Awayteamrank</th>
+                <td>{{ realMatch.awayTeamRank }}</td>
+            </tr>
+            <tr>
+                <th>Hometeamscore</th>
+                <td>{{ realMatch.homeTeamScore }}</td>
+            </tr>
+            <tr>
+                <th>Awayteamscore</th>
+                <td>{{ realMatch.awayTeamScore }}</td>
+            </tr>
+            <tr>
+                <th>Played</th>
+                <td>{% if realMatch.played %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Week</th>
+                <td>{{ realMatch.week }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if realMatch.date %}{{ realMatch.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('realmatch_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,65 @@
+StatsBundle\Entity\MpgMatch:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\MpgMatchRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        mpg_league:
+            targetEntity: MpgLeague
+            inversedBy: mpg_teams
+            joinColumn:
+                name: mpg_league_id
+                referencedColumnName: id
+    manyToOne:
+        home_team:
+            targetEntity: MpgTeam
+            inversedBy: home_teams
+            joinColumn:
+                name: home_team_id
+                referencedColumnName: id
+    manyToOne:
+        away_team:
+            targetEntity: MpgTeam
+            inversedBy: away_teams
+            joinColumn:
+                name: away_team_id
+                referencedColumnName: id
+    fields:
+        mpgLeagueId:
+            type: integer
+            column: mpg_league_id
+        week:
+            type: smallint
+        date:
+            type: datetime
+        homeTeamId:
+            type: integer
+            column: home_team_id
+        awayTeamId:
+            type: integer
+            column: away_team_id
+        homeTeamRank:
+            type: smallint
+            column: home_team_rank
+        awayTeamRank:
+            type: smallint
+            column: away_team_rank
+        homeScore:
+            type: smallint
+            nullable: true
+            column: home_score
+        awayScore:
+            type: smallint
+            nullable: true
+            column: away_score
+        played:
+            type: boolean
+            column: played
+            options:
+                default: 0
+    lifecycleCallbacks: {  }

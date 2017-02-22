@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Realleagues list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Teamamount</th>
+                <th>Upcomingweek</th>
+                <th>Season</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for realLeague in realLeagues %}
+            <tr>
+                <td><a href="{{ path('realleague_show', { 'id': realLeague.id }) }}">{{ realLeague.id }}</a></td>
+                <td>{{ realLeague.name }}</td>
+                <td>{{ realLeague.country }}</td>
+                <td>{{ realLeague.teamAmount }}</td>
+                <td>{{ realLeague.upcomingWeek }}</td>
+                <td>{{ realLeague.season }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('realleague_show', { 'id': realLeague.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

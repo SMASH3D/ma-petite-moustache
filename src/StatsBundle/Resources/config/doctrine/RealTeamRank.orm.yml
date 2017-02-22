@@ -1,0 +1,22 @@
+StatsBundle\Entity\RealTeamRank:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\RealTeamRankRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        week:
+            type: smallint
+        realTeamId:
+            type: integer
+            column: real_team_id
+        season:
+            type: integer
+        rank:
+            type: smallint
+            nullable: true
+    lifecycleCallbacks: {  }
