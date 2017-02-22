@@ -1,0 +1,29 @@
+{
+  "name": "Ma Petite Moustache",
+  "version": "1.0",
+  "description": "Scrapes data for the app and injects aggregated data back to make MPG UI richer",
+  "icons": { 
+    "16" : "images/16.png",
+    "48" : "images/48.png",
+    "48" : "images/64.png",
+    "128" : "images/128.png"
+    },
+  "permissions": ["tabs", "contextMenus", "*://www.monpetitgazon.com/*"],
+  "browser_action": {
+    "default_icon": "images/32.png",
+    "default_title": "MPG companion with a stach",
+    "default_popup": "popup.html",
+    "popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.monpetitgazon.com/championships/*"],
+      "js": ["jquery.js", "utilities.js", "scrapper.js"]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "manifest_version" : 2
+}
