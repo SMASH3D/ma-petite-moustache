@@ -10,6 +10,19 @@ class RealLeague
     /**
      * @var int
      */
+    const DEFAULT_TEAM_AMOUNT = 20;
+
+    /**
+     * Dirty constants :D
+     */
+    const FRENCH_CHAMPIONSHIP_ID = 1;
+    const BRITISH_CHAMPIONSHIP_ID = 2;
+    
+    const POINTS_FOR_VICTORY = 3;
+    const POINTS_FOR_DRAW = 1;
+    /**
+     * @var int
+     */
     private $id;
 
     /**
@@ -26,11 +39,6 @@ class RealLeague
      * @var int
      */
     private $teamAmount;
-
-    /**
-     * @var int
-     */
-    private $upcomingDay;
 
     /**
      * @var int
@@ -121,30 +129,6 @@ class RealLeague
     }
 
     /**
-     * Set upcomingDay
-     *
-     * @param integer $upcomingDay
-     *
-     * @return RealLeague
-     */
-    public function setUpcomingDay($upcomingDay)
-    {
-        $this->upcomingDay = $upcomingDay;
-
-        return $this;
-    }
-
-    /**
-     * Get upcomingDay
-     *
-     * @return int
-     */
-    public function getUpcomingDay()
-    {
-        return $this->upcomingDay;
-    }
-
-    /**
      * Set season
      *
      * @param integer $season
@@ -180,8 +164,13 @@ class RealLeague
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($mpgId, $name)
     {
+        $this->setMpgId($mpgId);
+        $this->setSeason(date('Y'));
+        $this->setName($name);
+        $this->setTeamAmount(self::DEFAULT_TEAM_AMOUNT);
+        $this->setCountryCodeFromChampionshipId($mpgId);
         $this->real_teams = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -271,4 +260,23 @@ class RealLeague
     {
         return $this->mpgId;
     }
+
+    /**
+     * DIRRRRTY FUNCTION to set the proper country code from the championship ID
+     *
+     * @param int $id championship ID
+     *
+     * @return RealLeague
+     */
+    public function setCountryCodeFromChampionshipId($id)
+    {
+        $this->country = 'FR';
+        if ($id == self::BRITISH_CHAMPIONSHIP_ID) {
+            $this->country = 'GB';
+        }
+        return $this;
+    }
+
+
+    
 }

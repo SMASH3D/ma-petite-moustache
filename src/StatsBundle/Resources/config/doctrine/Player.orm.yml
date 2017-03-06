@@ -13,6 +13,7 @@ StatsBundle\Entity\Player:
             targetEntity: RealLeague
             inversedBy: players
             joinColumn:
+                onDelete: CASCADE
                 name: real_league_id
                 referencedColumnName: id
     fields:
@@ -20,6 +21,10 @@ StatsBundle\Entity\Player:
             type: integer
             nullable: true
             column: real_league_id
+        mpgId:
+            type: integer
+            column: mpg_id
+            unique: true
         firstname:
             type: string
             length: 255

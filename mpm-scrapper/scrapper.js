@@ -191,6 +191,15 @@ function pushToMPM(type, jsonData)
 //#############################      Main     #############################
 //reactJS is not rendered when dom is ready, but js native window.onload event is late enough to occur after the react rendering
 window.onload = function(){
+    var r= $('<input type="button" value="push" id="mpm_push"/>');
+    $('div:regex(class, index__content___.*)').append(r);
+    mpmPush();
+    $("#mpm_push").click(function(){
+        mpmPush();
+    }); 
+};
+
+function mpmPush(){
     var championshipMatchRegex = /.*\/championships\/(\d+)\/match\/(\d+)/;
     var championshipSummaryRegex = /.*\/championships\/(\d+)\/calendar.*/;
 
@@ -208,4 +217,4 @@ window.onload = function(){
     } else {
         console.log(...label `gray info nothing to scrape here`);
     }
-};
+}

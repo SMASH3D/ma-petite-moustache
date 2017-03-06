@@ -2,6 +2,7 @@
 
 namespace StatsBundle\Entity;
 
+use StatsBundle\Entity\RealLeague;
 /**
  * RealTeam
  */
@@ -21,11 +22,6 @@ class RealTeam
      * @var int
      */
     private $realLeagueId;
-
-    /**
-     * @var string
-     */
-    private $country;
 
     /**
      * @var int
@@ -102,6 +98,18 @@ class RealTeam
      */
     private $seasonDefeatsAway;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $real_matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->real_matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -159,30 +167,6 @@ class RealTeam
     public function getRealLeagueId()
     {
         return $this->realLeagueId;
-    }
-
-    /**
-     * Set country
-     *
-     * @param string $country
-     *
-     * @return RealTeam
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
@@ -631,18 +615,6 @@ class RealTeam
     {
         return $this->real_league;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $real_matches;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->real_matches = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add realMatch
@@ -676,5 +648,108 @@ class RealTeam
     public function getRealMatches()
     {
         return $this->real_matches;
+    }
+    /**
+     * @var integer
+     */
+    private $mpg_id;
+
+
+    /**
+     * Set mpgId
+     *
+     * @param integer $mpgId
+     *
+     * @return RealTeam
+     */
+    public function setMpgId($mpgId)
+    {
+        $this->mpg_id = $mpgId;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgId
+     *
+     * @return integer
+     */
+    public function getMpgId()
+    {
+        return $this->mpg_id;
+    }
+    /**
+     * @var string
+     */
+    private $aggregated_weeks;
+
+
+    /**
+     * Set aggregatedWeeks
+     *
+     * @param string $aggregatedWeeks
+     *
+     * @return RealTeam
+     */
+    public function setAggregatedWeeks($aggregatedWeeks)
+    {
+        $this->aggregated_weeks = $aggregatedWeeks;
+
+        return $this;
+    }
+
+    /**
+     * Get aggregatedWeeks
+     *
+     * @return string
+     */
+    public function getAggregatedWeeks()
+    {
+        return $this->aggregated_weeks;
+    }
+    /**
+     * @var integer
+     */
+    private $points;
+
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return RealTeam
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        if (is_null($this->points)) {
+            $this->points = $this->getSeasonDraws() * RealLeague::POINTS_FOR_DRAW
+                + $this->getSeasonVictories() * RealLeague::POINTS_FOR_VICTORY;
+        }
+        
+        return $this->points;
+    }
+
+    /**
+     * Get Goal Average
+     *
+     * @return integer
+     */
+    public function getGoalAverage()
+    {
+        $this->goalAverage = $this->getSeasonGoalsScored() - $this->getSeasonGoalsTaken();
+        return $this->goalAverage;
     }
 }

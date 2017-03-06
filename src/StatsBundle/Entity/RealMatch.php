@@ -484,4 +484,33 @@ class RealMatch
     {
         return $this->real_player_matches;
     }
+    /**
+     * @var integer
+     */
+    private $season;
+
+
+    /**
+     * Set season
+     *
+     * @param integer $season
+     *
+     * @return RealMatch
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return integer
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
 }

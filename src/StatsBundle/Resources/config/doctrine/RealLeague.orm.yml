@@ -23,12 +23,14 @@ StatsBundle\Entity\RealLeague:
         country:
             type: string
             length: 255
+            nullable: true
         teamAmount:
             type: smallint
             column: team_amount
         mpgId:
             type: integer
             column: mpg_id
+            unique: true
         upcomingWeek:
             type: smallint
             column: upcoming_week

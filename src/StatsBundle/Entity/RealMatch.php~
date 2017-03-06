@@ -416,4 +416,72 @@ class RealMatch
     {
         return $this->player_real_matches;
     }
+    /**
+     * @var integer
+     */
+    private $mpgId;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $real_player_matches;
+
+
+    /**
+     * Set mpgId
+     *
+     * @param integer $mpgId
+     *
+     * @return RealMatch
+     */
+    public function setMpgId($mpgId)
+    {
+        $this->mpgId = $mpgId;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgId
+     *
+     * @return integer
+     */
+    public function getMpgId()
+    {
+        return $this->mpgId;
+    }
+
+    /**
+     * Add realPlayerMatch
+     *
+     * @param \StatsBundle\Entity\PlayerRealMatch $realPlayerMatch
+     *
+     * @return RealMatch
+     */
+    public function addRealPlayerMatch(\StatsBundle\Entity\PlayerRealMatch $realPlayerMatch)
+    {
+        $this->real_player_matches[] = $realPlayerMatch;
+
+        return $this;
+    }
+
+    /**
+     * Remove realPlayerMatch
+     *
+     * @param \StatsBundle\Entity\PlayerRealMatch $realPlayerMatch
+     */
+    public function removeRealPlayerMatch(\StatsBundle\Entity\PlayerRealMatch $realPlayerMatch)
+    {
+        $this->real_player_matches->removeElement($realPlayerMatch);
+    }
+
+    /**
+     * Get realPlayerMatches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRealPlayerMatches()
+    {
+        return $this->real_player_matches;
+    }
 }

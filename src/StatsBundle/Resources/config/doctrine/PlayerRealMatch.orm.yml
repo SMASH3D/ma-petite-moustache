@@ -13,6 +13,7 @@ StatsBundle\Entity\PlayerRealMatch:
             targetEntity: RealMatch
             inversedBy: real_matches
             joinColumn:
+                onDelete: CASCADE
                 name: real_match_id
                 referencedColumnName: id
 

@@ -13,6 +13,7 @@ StatsBundle\Entity\RealMatch:
             targetEntity: RealLeague
             inversedBy: real_matches
             joinColumn:
+                onDelete: CASCADE
                 name: real_league_id
                 referencedColumnName: id
     manyToOne:
@@ -20,6 +21,7 @@ StatsBundle\Entity\RealMatch:
             targetEntity: RealTeam
             inversedBy: home_teams
             joinColumn:
+                onDelete: CASCADE
                 name: home_team_id
                 referencedColumnName: id
     manyToOne:
@@ -27,6 +29,7 @@ StatsBundle\Entity\RealMatch:
             targetEntity: RealTeam
             inversedBy: away_teams
             joinColumn:
+                onDelete: CASCADE
                 name: away_team_id
                 referencedColumnName: id
     oneToMany:
@@ -40,6 +43,10 @@ StatsBundle\Entity\RealMatch:
         mpgId:
             type: integer
             column: mpg_id
+            unique: true
+        season:
+            type: integer
+            column: season
         homeTeamId:
             type: integer
             column: home_team_id
@@ -49,9 +56,11 @@ StatsBundle\Entity\RealMatch:
         homeTeamRank:
             type: smallint
             column: home_team_rank
+            nullable: true
         awayTeamRank:
             type: smallint
             column: away_team_rank
+            nullable: true
         homeTeamScore:
             type: smallint
             column: home_team_score
@@ -67,4 +76,5 @@ StatsBundle\Entity\RealMatch:
             type: smallint
         date:
             type: datetime
+            nullable: true
     lifecycleCallbacks: {  }

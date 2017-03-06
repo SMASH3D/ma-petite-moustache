@@ -13,6 +13,7 @@ StatsBundle\Entity\RealTeam:
             targetEntity: RealLeague
             inversedBy: real_teams
             joinColumn:
+                onDelete: CASCADE
                 name: real_league_id
                 referencedColumnName: id
     oneToMany:
@@ -23,12 +24,16 @@ StatsBundle\Entity\RealTeam:
         name:
             type: string
             length: 255
-        country:
-            type: string
-            length: 255
+        aggregated_weeks:
+            type: text
+            nullable: true
         rank:
             type: smallint
             nullable: true
+        mpg_id:
+            type: integer
+            nullable: true
+            unique: true
         matchesPlayed:
             type: smallint
             nullable: true
@@ -36,46 +41,66 @@ StatsBundle\Entity\RealTeam:
         seasonGoalsTaken:
             type: smallint
             column: season_goals_taken
+            nullable: true
         seasonGoalsScored:
             type: smallint
             column: season_goals_scored
+            nullable: true
         seasonVictories:
             type: smallint
             column: season_victories
+            nullable: true
         seasonDraws:
             type: smallint
             column: season_draws
+            nullable: true
         seasonDefeats:
             type: smallint
             column: season_defeats
+            nullable: true
         seasonGoalsTakenHome:
             type: smallint
             column: season_goals_taken_home
+            nullable: true
         seasonGoalsScoredHome:
             type: smallint
             column: season_goals_scored_home
+            nullable: true
         seasonVictoriesHome:
             type: smallint
             column: season_victories_home
+            nullable: true
         seasonDrawsHome:
             type: smallint
             column: season_draws_home
+            nullable: true
         seasonDefeatsHome:
             type: smallint
             column: season_defeats_home
+            nullable: true
         seasonGoalsTakenAway:
             type: smallint
             column: season_goals_taken_away
+            nullable: true
         seasonGoalsScoredAway:
             type: smallint
             column: season_goals_scored_away
+            nullable: true
         seasonVictoriesAway:
             type: smallint
             column: season_victories_away
+            nullable: true
         seasonDrawsAway:
             type: smallint
             column: season_draws_away
+            nullable: true
         seasonDefeatsAway:
             type: smallint
             column: season_defeats_away
+            nullable: true
+        points:
+            type: smallint
+            nullable: true
+            options:
+                default: 0
     lifecycleCallbacks: {  }

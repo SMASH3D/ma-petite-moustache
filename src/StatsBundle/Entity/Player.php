@@ -1472,4 +1472,33 @@ class Player
     {
         return $this->price;
     }
+    /**
+     * @var integer
+     */
+    private $mpgId;
+
+
+    /**
+     * Set mpgId
+     *
+     * @param integer $mpgId
+     *
+     * @return Player
+     */
+    public function setMpgId($mpgId)
+    {
+        $this->mpgId = $mpgId;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgId
+     *
+     * @return integer
+     */
+    public function getMpgId()
+    {
+        return $this->mpgId;
+    }
 }
