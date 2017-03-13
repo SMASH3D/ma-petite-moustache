@@ -30,15 +30,51 @@ function parseWeekData()
             var soccerGame           = {};
             soccerGame.url           = $(this).find('div:regex(class, index__score___.*) > a').attr('href');
             soccerGame.id            = soccerGame.url.match(/\/championships\/\d+\/match\/(\d+)/)[1];
-            soccerGame.homeTeam      = chunks[1];
+            soccerGame.homeTeam      = removeDiacritics(chunks[1]);
             soccerGame.homeTeamScore = chunks[2];
             soccerGame.awayTeamScore = chunks[3];
-            soccerGame.awayTeam      = chunks[4];
+            soccerGame.awayTeam      = removeDiacritics(chunks[4]);
 
             weekData.games[soccerGame.id] = soccerGame;
         }
     })
     return JSON.stringify(weekData);
+}
+
+/**
+* Parses player data from quotation page 
+* to scrape data we don't have elsewhere : firstname, post and quotation 
+* 
+* to be used only on players quotations page
+* e.g. https://www.monpetitgazon.com/quotation/1
+**/
+function parseQuotationData()
+{
+    var quotationData = {};
+    var playerQuotationRegex = /.*\/quotation\/(\d+)/;
+
+    quotationData.championshipID = window.location.pathname.match(playerQuotationRegex)[1];
+    quotationData.players = {};
+
+    
+    $('table:regex(class, index__table___.*) > tbody > tr:regex(class, index__line___.*)').each(function( i, el ) {
+        var player = {};
+        $(this).children('td').each(function( j, element ) {
+
+            //pushing so many data, property names shortened to reduce post size
+            if (j == 0) {
+                player.f = removeDiacritics($(this).find('span').text().trim());
+                player.l = removeDiacritics(element.innerText).replace(player.f, '').trim();
+            }
+
+            if (j == 1) player.p = removeDiacritics(element.innerText); 
+            if (j == 2) player.t = removeDiacritics(element.innerText); 
+            if (j == 3) player.q = element.innerText; 
+
+            quotationData.players[i] = player;
+        });
+    });
+    return JSON.stringify(quotationData);
 }
 
 /**
@@ -61,8 +97,8 @@ function parseMatchDetails()
     details.homeTeam = {};
     details.awayTeam = {};
 
-    details.homeTeam.name = $('div:regex(class, index__homeTeamClubName___.*) > span')[0].innerText;
-    details.awayTeam.name = $('div:regex(class, index__awayTeamClubName___.*) > span')[0].innerText;
+    details.homeTeam.name = removeDiacritics($('div:regex(class, index__homeTeamClubName___.*) > span')[0].innerText);
+    details.awayTeam.name = removeDiacritics($('div:regex(class, index__awayTeamClubName___.*) > span')[0].innerText);
 
     details.homeTeam.score = $('div:regex(class, index__scores___.*) > div > div')[0].innerText;
     details.awayTeam.score = $('div:regex(class, index__scores___.*) > div > div')[1].innerText;
@@ -71,7 +107,7 @@ function parseMatchDetails()
     details.homeTeam.scorers = {};
     details.homeTeam.goleadores = {};
     $('div:regex(class, index__goalHome___.*) > div').each(function( i, el ) {
-        var scorer = el.innerText.trim();
+        var scorer = removeDiacritics(el.innerText.trim());
         var goals = $(this).find('span:regex(class, index__ball___.* )').length;
         details.homeTeam.scorers[scorer] = goals;
         details.homeTeam.goleadores[i] = {'player' : scorer, 'goals' : goals};
@@ -81,7 +117,7 @@ function parseMatchDetails()
     details.awayTeam.scorers = {};
     details.awayTeam.goleadores = {};
     $('div:regex(class, index__goalAway___.*) > div').each(function( i, el ) {
-        var scorer = el.innerText.trim();
+        var scorer = removeDiacritics(el.innerText.trim());
         var goals = $(this).find('span:regex(class, index__ball___.* )').length;
         details.awayTeam.scorers[scorer] = goals;
         details.awayTeam.goleadores[i] = {'player' : scorer, 'goals' : goals};
@@ -92,12 +128,18 @@ function parseMatchDetails()
     var scoreNameRegex = /([0-9]+)\s{2}(\D+)/;
     $('div:regex(class, index__pitchHome___.*) > div').each(function( i, el ) {
         $(this).find('div:regex(class, index__player___.* )').each(function( i, element ) {
+            var top = $(this).offset().top;
             var matchText = element.innerText.replace(/\n/g," ");
             if(scoreNameRegex.test(matchText)) {
                 var player = {};
                 var matchData = scoreNameRegex.exec(matchText);
-                player.name   = matchData[2].trim();
+                player.name   = removeDiacritics(matchData[2].trim());
                 player.rating = matchData[1];
+                player.starter = true;
+                if (top > 800) {
+                    //TODO change that, maybe take window height into account
+                    player.starter = false;
+                }
                 //did this guy score ? 
                 $.each(details.homeTeam.scorers, function(scorer, score) {
                     if (scorer == player.name) {
@@ -115,12 +157,17 @@ function parseMatchDetails()
     details.awayTeam.players = {};
     $('div:regex(class, index__pitchAway___.*) > div').each(function( i, el ) {
         $(this).find('div:regex(class, index__player___.* )').each(function( i, element ) {
+            var top = $(this).offset().top;
             var matchText = element.innerText.replace(/\n/g," ");
             if(scoreNameRegex.test(matchText)) {
                 var player = {};
                 var matchData = scoreNameRegex.exec(matchText);
-                player.name   = matchData[2].trim();
+                player.name   = removeDiacritics(matchData[2].trim());
                 player.rating = matchData[1];
+                player.starter = true;
+                if (top > 800) {
+                    player.starter = false;
+                }
                 //did this guy score ? 
                 $.each(details.awayTeam.scorers, function(scorer, score) {
                     if (scorer == player.name) {
@@ -168,7 +215,9 @@ function pushToMPM(type, jsonData)
         console.log(jsonData);
     } else if (type == 'real_week_summary') {
         targetUrl = baseUrl+'pushWeekSummary';
-        console.log('pushing week summary');
+    } else if (type == 'player_details') {
+        targetUrl = baseUrl+'pushPlayerQuotations';
+        console.log('pushing player quotations');
         console.log(jsonData);
     }
     $.ajax({
@@ -178,7 +227,14 @@ function pushToMPM(type, jsonData)
         data: jsonData,
         contentType: "application/x-www-form-urlencoded;charset=utf-8",
         success: function(data){
-            console.log(...label `green success MPM scrape success`);
+            if (data.code == 200) {
+                console.log(...label `green success scrapping success`);
+            } else if (data.code == 201) {
+                console.log(...label `orange info scrapping success`);
+            } else if (data.code >= 300) {
+                console.log(...label `red Error scrapping failed`);
+                console.log(data.message);
+            }
         },
         failure: function(errMsg) {
             console.log(...label `red error MPM scrape failure`);
@@ -202,6 +258,7 @@ window.onload = function(){
 function mpmPush(){
     var championshipMatchRegex = /.*\/championships\/(\d+)\/match\/(\d+)/;
     var championshipSummaryRegex = /.*\/championships\/(\d+)\/calendar.*/;
+    var playerQuotationRegex = /.*\/quotation\/(\d+)/;
 
     var uri = window.location.pathname;
     if (championshipMatchRegex.test(uri)) {
@@ -214,6 +271,11 @@ function mpmPush(){
         var weekData = parseWeekData();
         //pushing it to the app
         pushToMPM('real_week_summary', weekData);
+    } else if (playerQuotationRegex.test(uri)) {
+         //Scraping the data
+        var quotationData = parseQuotationData();
+        //pushing it to the app
+        pushToMPM('player_details', quotationData);
     } else {
         console.log(...label `gray info nothing to scrape here`);
     }

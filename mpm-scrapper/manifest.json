@@ -17,7 +17,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.monpetitgazon.com/championships/*"],
+      "matches": ["*://www.monpetitgazon.com/*/*"],
       "js": ["jquery.js", "utilities.js", "scrapper.js"]
     }
   ],
