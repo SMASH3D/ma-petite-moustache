@@ -49,17 +49,13 @@ class AjaxController extends Controller
      * pushMatchDetails action: the chrome extension sends a match summary within a json thing
      * we process them and store aggregated data in the db
      *
-     * @param Request $request the request
-     *
      * @return JsonResponse
      */
-    public function pushMatchDetailsAction(Request $request)
+    public function pushMatchDetailsAction()
     {
-        if ($request->isXmlHttpRequest()) {
-            $matchDetails = $request->request->get('data');
-        }
-        $response = array("code" => 200, "success" => true);
-        return new JsonResponse($response);
+        $matchDetails = $this->_getJsonInput();
+        $code = $this->_processMatchDetails($matchDetails);
+        return $this->_sendFeedback($code);
     }
 
     /**
@@ -75,6 +71,19 @@ class AjaxController extends Controller
         return $this->_sendFeedback($code);
     }
 
+    /**
+     * pushPlayerQuotations Action : the chrome extension sends a bunch of information
+     * for all the players of a given championship within a json thing
+     *
+     * @return JsonResponse
+     */
+    public function pushPlayerQuotationsAction()
+    {
+        $playerQuotations = $this->_getJsonInput();
+        $code = $this->_processPlayerQuotations($playerQuotations);
+        return $this->_sendFeedback($code);
+    }
+    
     //######################################## UTILITIES ##########################################
     /**
      * gets the json input from the request and stores it into a class variable
@@ -123,7 +132,7 @@ class AjaxController extends Controller
     //######################################## WRAPPERS ##########################################
 
     /**
-     * Calls the aggregator to process the data received
+     * Calls the aggregator to process the data received for a whole game week
      *
      * @param array $weekSummary array of data sent by the chrome extension
      *
@@ -137,6 +146,36 @@ class AjaxController extends Controller
             /** @var Aggregator $aggregator */
             $aggregator = $this->get('stats.aggregator');
             $code = $aggregator->aggregateWeekSummary($weekSummary);
+        }
+        return $code;
+    }
+    /**
+     * Calls the aggregator to process the data received for a specific match
+     *
+     * @param array $matchDetails array of data sent by the chrome extension
+     *
+     * @return integer $code the response code
+     */
+    protected function _processMatchDetails($matchDetails)
+    {
+        if (empty($matchDetails)) {
+            $code = 300;
+        } else {
+            /** @var Aggregator $aggregator */
+            $aggregator = $this->get('stats.aggregator');
+            $code = $aggregator->aggregateMatchDetails($matchDetails);
+        }
+        return $code;
+    }
+
+    protected function _processPlayerQuotations($playerQuotations)
+    {
+        if (empty($playerQuotations)) {
+            $code = 300;
+        } else {
+            /** @var Aggregator $aggregator */
+            $aggregator = $this->get('stats.aggregator');
+            $code = $aggregator->aggregatePlayerQuotations($playerQuotations);
         }
         return $code;
     }

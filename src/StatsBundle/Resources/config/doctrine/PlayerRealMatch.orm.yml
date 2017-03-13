@@ -11,38 +11,82 @@ StatsBundle\Entity\PlayerRealMatch:
     manyToOne:
         real_match:
             targetEntity: RealMatch
-            inversedBy: real_matches
+            inversedBy: player_real_matches
             joinColumn:
                 onDelete: CASCADE
                 name: real_match_id
                 referencedColumnName: id
+        player:
+            targetEntity: Player
+            inversedBy: player_real_matches
+            joinColumn:
+                onDelete: CASCADE
+                name: player_id
+                referencedColumnName: id
 
     fields:
+        playerId:
+            type: integer
+            column: player_id
+        realMatchId:
+            type: integer
+            column: real_match_id
+            nullable: true
         hasStarted:
             type: boolean
             column: has_started
+            nullable: true
+            options:
+                default: 0
         hasEntered:
             type: boolean
             column: has_entered
+            nullable: true
+            options:
+                default: 0
         yellowCards:
             type: smallint
             column: yellow_cards
+            nullable: true
+            options:
+                default: 0
         redCard:
             type: boolean
             column: red_card
+            nullable: true
+            options:
+                default: 0
         goals:
             type: smallint
+            nullable: true
+            options:
+                default: 0
         assists:
             type: smallint
-        ownGoal:
+            nullable: true
+            options:
+                default: 0
+        ownGoals:
             type: smallint
-            column: own_goal
+            column: own_goals
+            nullable: true
+            options:
+                default: 0
         rating:
             type: float
+            nullable: true
+            options:
+                default: 0
         minutesPlayed:
             type: smallint
             column: minutes_played
+            nullable: true
+            options:
+                default: 0
         errorsLeadingToGoal:
             type: smallint
             column: errors_leading_to_goal
+            nullable: true
+            options:
+                default: 0
     lifecycleCallbacks: {  }

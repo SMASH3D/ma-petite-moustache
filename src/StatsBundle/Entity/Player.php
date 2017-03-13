@@ -1501,4 +1501,79 @@ class Player
     {
         return $this->mpgId;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $player_real_matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->player_real_matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add playerRealMatch
+     *
+     * @param \StatsBundle\Entity\PlayerRealMatch $playerRealMatch
+     *
+     * @return Player
+     */
+    public function addPlayerRealMatch(\StatsBundle\Entity\PlayerRealMatch $playerRealMatch)
+    {
+        $this->player_real_matches[] = $playerRealMatch;
+
+        return $this;
+    }
+
+    /**
+     * Remove playerRealMatch
+     *
+     * @param \StatsBundle\Entity\PlayerRealMatch $playerRealMatch
+     */
+    public function removePlayerRealMatch(\StatsBundle\Entity\PlayerRealMatch $playerRealMatch)
+    {
+        $this->player_real_matches->removeElement($playerRealMatch);
+    }
+
+    /**
+     * Get playerRealMatches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayerRealMatches()
+    {
+        return $this->player_real_matches;
+    }
+    /**
+     * @var \StatsBundle\Entity\RealTeam
+     */
+    private $real_team;
+
+
+    /**
+     * Set realTeam
+     *
+     * @param \StatsBundle\Entity\RealTeam $realTeam
+     *
+     * @return Player
+     */
+    public function setRealTeam(\StatsBundle\Entity\RealTeam $realTeam = null)
+    {
+        $this->real_team = $realTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get realTeam
+     *
+     * @return \StatsBundle\Entity\RealTeam
+     */
+    public function getRealTeam()
+    {
+        return $this->real_team;
+    }
 }

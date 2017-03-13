@@ -752,4 +752,43 @@ class RealTeam
         $this->goalAverage = $this->getSeasonGoalsScored() - $this->getSeasonGoalsTaken();
         return $this->goalAverage;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $players;
+
+
+    /**
+     * Add player
+     *
+     * @param \StatsBundle\Entity\Player $player
+     *
+     * @return RealTeam
+     */
+    public function addPlayer(\StatsBundle\Entity\Player $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param \StatsBundle\Entity\Player $player
+     */
+    public function removePlayer(\StatsBundle\Entity\Player $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
 }

@@ -16,6 +16,17 @@ StatsBundle\Entity\Player:
                 onDelete: CASCADE
                 name: real_league_id
                 referencedColumnName: id
+        real_team:
+            targetEntity: RealTeam
+            inversedBy: players
+            joinColumn:
+                onDelete: CASCADE
+                name: real_team_id
+                referencedColumnName: id
+    oneToMany:
+        player_real_matches:
+            targetEntity: PlayerRealMatch
+            mappedBy: player
     fields:
         realLeagueId:
             type: integer
@@ -24,16 +35,18 @@ StatsBundle\Entity\Player:
         mpgId:
             type: integer
             column: mpg_id
-            unique: true
+            nullable: true
         firstname:
             type: string
             length: 255
+            nullable: true
         lastname:
             type: string
             length: 255
         role:
             type: string
             length: 255
+            nullable: true
         price:
             type: smallint
             nullable: true
@@ -66,12 +79,18 @@ StatsBundle\Entity\Player:
             column: most_frequent_grade
         injured:
             type: boolean
+            nullable: true
+            options:
+                default: 0
         injuredUntil:
             type: datetime
             nullable: true
             column: injured_until
         suspended:
             type: boolean
+            nullable: true
+            options:
+                default: 0
         suspendedUntilWeek:
             type: smallint
             nullable: true
@@ -79,29 +98,56 @@ StatsBundle\Entity\Player:
         seasonGoals:
             type: smallint
             column: season_goals
+            nullable: true
+            options:
+                default: 0
         seasonAssists:
             type: smallint
             column: season_assists
+            nullable: true
+            options:
+                default: 0
         injuriesCount:
             type: smallint
             column: injuries_count
+            nullable: true
+            options:
+                default: 0
         exclusions:
             type: smallint
+            nullable: true
+            options:
+                default: 0
         seasonYellowCards:
             type: smallint
             column: season_yellow_cards
+            nullable: true
+            options:
+                default: 0
         seasonRedCards:
             type: smallint
             column: season_red_cards
+            nullable: true
+            options:
+                default: 0
         allTimeYellowCards:
             type: smallint
             column: all_time_yellow_cards
+            nullable: true
+            options:
+                default: 0
         allTimeRedCards:
             type: smallint
             column: all_time_red_cards
+            nullable: true
+            options:
+                default: 0
         allTimeGoals:
             type: smallint
             column: all_time_goals
+            nullable: true
+            options:
+                default: 0
         yearOfBirth:
             type: smallint
             nullable: true
@@ -113,35 +159,68 @@ StatsBundle\Entity\Player:
         seasonInjuries:
             type: smallint
             column: season_injuries
+            nullable: true
+            options:
+                default: 0
         allTimeAssists:
             type: smallint
             column: all_time_assists
+            nullable: true
+            options:
+                default: 0
         seasonOwnGoals:
             type: smallint
             column: season_own_goals
+            nullable: true
+            options:
+                default: 0
         allTimeOwnGoals:
             type: smallint
             column: all_time_own_goals
+            nullable: true
+            options:
+                default: 0
         seasonMinutesPlayed:
             type: smallint
             column: season_minutes_played
+            nullable: true
+            options:
+                default: 0
         allTimeMinutesPlayed:
             type: smallint
             column: all_time_minutes_played
+            nullable: true
+            options:
+                default: 0
         seasonStarts:
             type: smallint
             column: season_starts
+            nullable: true
+            options:
+                default: 0
         seasonEntries:
             type: smallint
             column: season_entries
+            nullable: true
+            options:
+                default: 0
         allTimeStarts:
             type: smallint
             column: all_time_starts
+            nullable: true
+            options:
+                default: 0
         allTimeEntries:
             type: smallint
             column: all_time_entries
+            nullable: true
+            options:
+                default: 0
         away:
             type: boolean
+            nullable: true
+            options:
+                default: 0
         awayUntil:
             type: datetime
             nullable: true
@@ -149,13 +228,18 @@ StatsBundle\Entity\Player:
         allTimeUnavailabilityWeeks:
             type: smallint
             column: all_time_unavailability_weeks
+            nullable: true
         seasonsPlayed:
             type: smallint
             column: seasons_played
+            nullable: true
         nationality:
             type: string
             length: 255
             nullable: true
         captain:
             type: boolean
+            nullable: true
+            options:
+                default: 0
     lifecycleCallbacks: {  }

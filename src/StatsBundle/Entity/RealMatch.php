@@ -513,4 +513,62 @@ class RealMatch
     {
         return $this->season;
     }
+    /**
+     * @var \StatsBundle\Entity\RealTeam
+     */
+    private $home_team;
+
+    /**
+     * @var \StatsBundle\Entity\RealTeam
+     */
+    private $away_team;
+
+
+    /**
+     * Set homeTeam
+     *
+     * @param \StatsBundle\Entity\RealTeam $homeTeam
+     *
+     * @return RealMatch
+     */
+    public function setHomeTeam(\StatsBundle\Entity\RealTeam $homeTeam = null)
+    {
+        $this->home_team = $homeTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get homeTeam
+     *
+     * @return \StatsBundle\Entity\RealTeam
+     */
+    public function getHomeTeam()
+    {
+        return $this->home_team;
+    }
+
+    /**
+     * Set awayTeam
+     *
+     * @param \StatsBundle\Entity\RealTeam $awayTeam
+     *
+     * @return RealMatch
+     */
+    public function setAwayTeam(\StatsBundle\Entity\RealTeam $awayTeam = null)
+    {
+        $this->away_team = $awayTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get awayTeam
+     *
+     * @return \StatsBundle\Entity\RealTeam
+     */
+    public function getAwayTeam()
+    {
+        return $this->away_team;
+    }
 }

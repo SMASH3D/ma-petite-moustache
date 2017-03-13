@@ -20,6 +20,9 @@ StatsBundle\Entity\RealTeam:
         real_matches:
             targetEntity: RealMatch
             mappedBy: real_team
+        players:
+            targetEntity: Player
+            mappedBy: real_team
     fields:
         name:
             type: string

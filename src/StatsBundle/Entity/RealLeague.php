@@ -45,6 +45,33 @@ class RealLeague
      */
     private $season;
 
+    /**
+     * @var integer
+     */
+    private $upcomingWeek;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $real_teams;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $real_matches;
+
+    /**
+     * Constructor
+     */
+    public function __construct($mpgId, $name)
+    {
+        $this->setMpgId($mpgId);
+        $this->setSeason(date('Y'));
+        $this->setName($name);
+        $this->setTeamAmount(self::DEFAULT_TEAM_AMOUNT);
+        $this->setCountryCodeFromChampionshipId($mpgId);
+        $this->real_teams = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -151,28 +178,6 @@ class RealLeague
     {
         return $this->season;
     }
-    /**
-     * @var integer
-     */
-    private $upcomingWeek;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $real_teams;
-
-    /**
-     * Constructor
-     */
-    public function __construct($mpgId, $name)
-    {
-        $this->setMpgId($mpgId);
-        $this->setSeason(date('Y'));
-        $this->setName($name);
-        $this->setTeamAmount(self::DEFAULT_TEAM_AMOUNT);
-        $this->setCountryCodeFromChampionshipId($mpgId);
-        $this->real_teams = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set upcomingWeek
@@ -277,6 +282,37 @@ class RealLeague
         return $this;
     }
 
+    /**
+     * Add realMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $realMatch
+     *
+     * @return RealLeague
+     */
+    public function addRealMatch(\StatsBundle\Entity\RealMatch $realMatch)
+    {
+        $this->real_matches[] = $realMatch;
 
-    
+        return $this;
+    }
+
+    /**
+     * Remove realMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $realMatch
+     */
+    public function removeRealMatch(\StatsBundle\Entity\RealMatch $realMatch)
+    {
+        $this->real_matches->removeElement($realMatch);
+    }
+
+    /**
+     * Get realMatches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRealMatches()
+    {
+        return $this->real_matches;
+    }
 }

@@ -12,7 +12,6 @@ StatsBundle\Entity\RealLeague:
         real_teams:
             targetEntity: RealTeam
             mappedBy: real_league
-    oneToMany:
         real_matches:
             targetEntity: RealMatch
             mappedBy: real_match

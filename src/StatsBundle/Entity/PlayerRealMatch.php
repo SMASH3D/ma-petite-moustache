@@ -370,4 +370,120 @@ class PlayerRealMatch
     {
         return $this->real_match;
     }
+    /**
+     * @var integer
+     */
+    private $playerId;
+
+
+    /**
+     * Set playerId
+     *
+     * @param integer $playerId
+     *
+     * @return PlayerRealMatch
+     */
+    public function setPlayerId($playerId)
+    {
+        $this->playerId = $playerId;
+
+        return $this;
+    }
+
+    /**
+     * Get playerId
+     *
+     * @return integer
+     */
+    public function getPlayerId()
+    {
+        return $this->playerId;
+    }
+    /**
+     * @var \StatsBundle\Entity\Player
+     */
+    private $player;
+
+
+    /**
+     * Set player
+     *
+     * @param \StatsBundle\Entity\Player $player
+     *
+     * @return PlayerRealMatch
+     */
+    public function setPlayer(\StatsBundle\Entity\Player $player = null)
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * Get player
+     *
+     * @return \StatsBundle\Entity\Player
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
+    /**
+     * @var integer
+     */
+    private $realMatchId;
+
+
+    /**
+     * Set realMatchId
+     *
+     * @param integer $realMatchId
+     *
+     * @return PlayerRealMatch
+     */
+    public function setRealMatchId($realMatchId)
+    {
+        $this->realMatchId = $realMatchId;
+
+        return $this;
+    }
+
+    /**
+     * Get realMatchId
+     *
+     * @return integer
+     */
+    public function getRealMatchId()
+    {
+        return $this->realMatchId;
+    }
+    /**
+     * @var integer
+     */
+    private $ownGoals = 0;
+
+
+    /**
+     * Set ownGoals
+     *
+     * @param integer $ownGoals
+     *
+     * @return PlayerRealMatch
+     */
+    public function setOwnGoals($ownGoals)
+    {
+        $this->ownGoals = $ownGoals;
+
+        return $this;
+    }
+
+    /**
+     * Get ownGoals
+     *
+     * @return integer
+     */
+    public function getOwnGoals()
+    {
+        return $this->ownGoals;
+    }
 }

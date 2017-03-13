@@ -9,14 +9,6 @@ StatsBundle\Entity\RealMatch:
             generator:
                 strategy: AUTO
     manyToOne:
-        real_league:
-            targetEntity: RealLeague
-            inversedBy: real_matches
-            joinColumn:
-                onDelete: CASCADE
-                name: real_league_id
-                referencedColumnName: id
-    manyToOne:
         home_team:
             targetEntity: RealTeam
             inversedBy: home_teams
@@ -24,7 +16,13 @@ StatsBundle\Entity\RealMatch:
                 onDelete: CASCADE
                 name: home_team_id
                 referencedColumnName: id
-    manyToOne:
+        real_league:
+            targetEntity: RealLeague
+            inversedBy: real_matches
+            joinColumn:
+                onDelete: CASCADE
+                name: real_league_id
+                referencedColumnName: id
         away_team:
             targetEntity: RealTeam
             inversedBy: away_teams
@@ -33,7 +31,7 @@ StatsBundle\Entity\RealMatch:
                 name: away_team_id
                 referencedColumnName: id
     oneToMany:
-        real_player_matches:
+        player_real_matches:
             targetEntity: PlayerRealMatch
             mappedBy: real_match
     fields:
