@@ -1,6 +1,7 @@
 {
     "name": "tomew/ma-petite-moustache",
     "license": "proprietary",
+    "description": "Powering up Mon petit gazon",
     "type": "project",
     "autoload": {
         "psr-4": {
