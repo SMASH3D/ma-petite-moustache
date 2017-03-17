@@ -1,0 +1,44 @@
+StatsBundle\Entity\Synonym:
+    type: entity
+    table: null
+    repositoryClass: StatsBundle\Repository\SynonymRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    manyToOne:
+        player:
+            targetEntity: Player
+            inversedBy: player_synonyms
+            joinColumn:
+                onDelete: CASCADE
+                name: player_id
+                referencedColumnName: id
+        team:
+            targetEntity: RealTeam
+            inversedBy: team_synonyms
+            joinColumn:
+                onDelete: CASCADE
+                name: real_team_id
+                referencedColumnName: id
+    fields:
+        playerId:
+            type: integer
+            column: player_id
+            nullable: true
+        teamId:
+            type: integer
+            column: real_team_id
+            nullable: true
+        actualName:
+            type: string
+            length: 255
+            column: actual_name
+        synonym:
+            type: string
+            length: 255
+            column: synonym
+    lifecycleCallbacks: {  }
