@@ -19,7 +19,7 @@ StatsBundle\Entity\Synonym:
                 referencedColumnName: id
         team:
             targetEntity: RealTeam
-            inversedBy: team_synonyms
+            inversedBy: synonyms
             joinColumn:
                 onDelete: CASCADE
                 name: real_team_id

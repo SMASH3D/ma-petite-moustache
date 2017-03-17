@@ -47,7 +47,62 @@ class RealMatch
      */
     private $date;
 
+    /**
+     * @var \StatsBundle\Entity\RealLeague
+     */
+    private $real_league;
+    /**
+     * @var boolean
+     */
+    private $played = 0;
 
+    /**
+     * @var integer
+     */
+    private $week;
+
+    /**
+     * @var integer
+     */
+    private $homeTeamRank;
+
+    /**
+     * @var integer
+     */
+    private $awayTeamRank;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $player_real_matches;
+    /**
+     * @var integer
+     */
+    private $mpgId;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $real_player_matches;
+
+    /**
+     * @var \StatsBundle\Entity\RealTeam
+     */
+    private $home_team;
+
+    /**
+     * @var \StatsBundle\Entity\RealTeam
+     */
+    private $away_team;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->player_real_matches = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -225,11 +280,6 @@ class RealMatch
     {
         return $this->date;
     }
-    /**
-     * @var \StatsBundle\Entity\RealLeague
-     */
-    private $real_league;
-
 
     /**
      * Set realLeague
@@ -254,16 +304,6 @@ class RealMatch
     {
         return $this->real_league;
     }
-    /**
-     * @var boolean
-     */
-    private $played = 0;
-
-    /**
-     * @var integer
-     */
-    private $week;
-
 
     /**
      * Set played
@@ -313,17 +353,6 @@ class RealMatch
         return $this->week;
     }
     /**
-     * @var integer
-     */
-    private $homeTeamRank;
-
-    /**
-     * @var integer
-     */
-    private $awayTeamRank;
-
-
-    /**
      * Set homeTeamRank
      *
      * @param integer $homeTeamRank
@@ -370,18 +399,6 @@ class RealMatch
     {
         return $this->awayTeamRank;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $player_real_matches;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->player_real_matches = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add playerRealMatch
@@ -416,16 +433,6 @@ class RealMatch
     {
         return $this->player_real_matches;
     }
-    /**
-     * @var integer
-     */
-    private $mpgId;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $real_player_matches;
-
 
     /**
      * Set mpgId
@@ -513,16 +520,6 @@ class RealMatch
     {
         return $this->season;
     }
-    /**
-     * @var \StatsBundle\Entity\RealTeam
-     */
-    private $home_team;
-
-    /**
-     * @var \StatsBundle\Entity\RealTeam
-     */
-    private $away_team;
-
 
     /**
      * Set homeTeam

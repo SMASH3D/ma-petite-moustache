@@ -102,7 +102,7 @@ class RealTeam
      * @var \Doctrine\Common\Collections\Collection
      */
     private $real_matches;
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -114,6 +114,7 @@ class RealTeam
     public function __construct()
     {
         $this->real_matches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->synonyms = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

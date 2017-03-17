@@ -49,7 +49,7 @@ class Synonym
     /**
      * @var \StatsBundle\Entity\RealTeam
      */
-    private $team;
+    private $realTeam;
 
     /**
      * Set playerId
@@ -174,13 +174,13 @@ class Synonym
     /**
      * Set team
      *
-     * @param \StatsBundle\Entity\RealTeam $team the team
+     * @param \StatsBundle\Entity\RealTeam $realTeam the team
      *
      * @return Synonym
      */
-    public function setTeam(\StatsBundle\Entity\RealTeam $team = null)
+    public function setTeam(\StatsBundle\Entity\RealTeam $realTeam = null)
     {
-        $this->team = $team;
+        $this->realTeam = $realTeam;
 
         return $this;
     }
@@ -190,8 +190,8 @@ class Synonym
      *
      * @return \StatsBundle\Entity\Real_Team
      */
-    public function getTeam()
+    public function getRealTeam()
     {
-        return $this->team;
+        return $this->realTeam;
     }
 }
