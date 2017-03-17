@@ -142,7 +142,7 @@ function parseMatchDetails()
                 player.rating = matchData[1];
                 player.starter = true;
                 if (top > 800) {
-                    //TODO change that, maybe take window height into account
+                    //change that someday, maybe take window height into account
                     player.starter = false;
                 }
                 //did this guy score ? 
