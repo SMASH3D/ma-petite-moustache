@@ -3,12 +3,8 @@
 namespace StatsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use StatsBundle\Service\Aggregator;
-use StatsBundle\Entity\RealLeague;
-use StatsBundle\Entity\RealMatch;
-use StatsBundle\Entity\RealTeam;
 
 /**
  * Class AjaxController
@@ -66,9 +62,9 @@ class AjaxController extends Controller
      */
     public function pushWeekSummaryAction()
     {
-        $weekSummary = $this->_getJsonInput();
-        $code = $this->_processWeekSummary($weekSummary);
-        return $this->_sendFeedback($code);
+        $weekSummary = $this->getJsonInput();
+        $code = $this->processWeekSummary($weekSummary);
+        return $this->sendFeedback($code);
     }
 
     /**
@@ -79,9 +75,9 @@ class AjaxController extends Controller
      */
     public function pushPlayerQuotationsAction()
     {
-        $playerQuotations = $this->_getJsonInput();
-        $code = $this->_processPlayerQuotations($playerQuotations);
-        return $this->_sendFeedback($code);
+        $playerQuotations = $this->getJsonInput();
+        $code = $this->processPlayerQuotations($playerQuotations);
+        return $this->sendFeedback($code);
     }
     
     //######################################## UTILITIES ##########################################
@@ -90,7 +86,7 @@ class AjaxController extends Controller
      *
      * @return mixed
      */
-    private function _getJsonInput()
+    private function getJsonInput()
     {
         // I AM NASTY
         if (empty($this->_jsonInput)) {
@@ -106,7 +102,7 @@ class AjaxController extends Controller
      *
      * @return JsonResponse
      */
-    private function _sendFeedback($code)
+    private function sendFeedback($code)
     {
         $success = true;
         switch ($code) {
@@ -138,7 +134,7 @@ class AjaxController extends Controller
      *
      * @return integer $code the response code
      */
-    protected function _processWeekSummary($weekSummary)
+    protected function processWeekSummary($weekSummary)
     {
         if (empty($weekSummary)) {
             $code = 300;
@@ -156,7 +152,7 @@ class AjaxController extends Controller
      *
      * @return integer $code the response code
      */
-    protected function _processMatchDetails($matchDetails)
+    protected function processMatchDetails($matchDetails)
     {
         if (empty($matchDetails)) {
             $code = 300;
@@ -168,7 +164,14 @@ class AjaxController extends Controller
         return $code;
     }
 
-    protected function _processPlayerQuotations($playerQuotations)
+    /**
+     * processPlayerQuotations
+     *
+     * @param array $playerQuotations the quotations
+     * 
+     * @return int|string
+     */
+    protected function processPlayerQuotations($playerQuotations)
     {
         if (empty($playerQuotations)) {
             $code = 300;

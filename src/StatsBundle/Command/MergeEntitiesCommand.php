@@ -1,7 +1,6 @@
 <?php
 namespace StatsBundle\Command;
 
-use Symfony\Component\Console\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,6 +10,7 @@ use StatsBundle\Entity\Player;
 
 /**
  * Class MergeEntitiesCommand
+ *
  * @package StatsBundle\Command
  */
 class MergeEntitiesCommand extends ContainerAwareCommand
@@ -19,7 +19,7 @@ class MergeEntitiesCommand extends ContainerAwareCommand
     private $_output;
     private $_mainName;
     private $_secondaryName;
-    private $em;
+    private $_em;
     private $_merge;
 
 
@@ -70,12 +70,12 @@ class MergeEntitiesCommand extends ContainerAwareCommand
 
         if ($input->getArgument('type') == 'team') {
             $manager = $this->getContainer()->get('stats.real_team_manager');
-            $mainEntity = $this->_getTeam($this->_mainName, 'main');
-            $secondaryEntity = $this->_getTeam($this->_secondaryName, 'secondary');
+            $mainEntity = $this->getTeam($this->_mainName, 'main');
+            $secondaryEntity = $this->getTeam($this->_secondaryName, 'secondary');
         } else {
             $manager = $this->getContainer()->get('stats.player_manager');
-            $mainEntity = $this->_choosePlayerAmongHomonyms($this->_mainName, 'main');
-            $secondaryEntity = $this->_choosePlayerAmongHomonyms($this->_secondaryName, 'secondary');
+            $mainEntity = $this->choosePlayerAmongHomonyms($this->_mainName, 'main');
+            $secondaryEntity = $this->choosePlayerAmongHomonyms($this->_secondaryName, 'secondary');
         }
 
         if ($this->_merge) {
@@ -83,10 +83,18 @@ class MergeEntitiesCommand extends ContainerAwareCommand
         }
     }
 
-    private function _getTeam($name, $usage)
+    /**
+     * _getTeam
+     *
+     * @param string $name  the name
+     * @param string $usage the usage (main/secondary)
+     *
+     * @return mixed
+     */
+    private function getTeam($name, $usage)
     {
-        $this->em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $teams = $this->em
+        $this->_em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $teams = $this->_em
             ->getRepository('StatsBundle:RealTeam')
             ->createQueryBuilder('t')
             ->where('t.name LIKE :teamname')
@@ -127,24 +135,24 @@ class MergeEntitiesCommand extends ContainerAwareCommand
     /**
      * wizard to load the proper Player entities
      *
-     * @param string $playername the name of the player
+     * @param string $playerName the name of the player
      * @param string $usage      main/secondary
      *
      * @return Player
      */
-    private function _choosePlayerAmongHomonyms($playername, $usage = 'main')
+    private function choosePlayerAmongHomonyms($playerName, $usage = 'main')
     {
         $player = null;
-        $this->em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $players = $this->em
+        $this->_em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $players = $this->_em
             ->getRepository('StatsBundle:Player')
             ->createQueryBuilder('p')
-            ->where('p.lastname LIKE :playername')
-            ->setParameter('playername', '%'.$playername.'%')
+            ->where('p.lastname LIKE :playerName')
+            ->setParameter('playerName', '%'.$playerName.'%')
             ->getQuery()
             ->getResult();
         if (count($players) > 1) {
-            $this->_output->writeln('<comment>There are several matches for the '.$usage.' player named '. $playername.'</comment>');
+            $this->_output->writeln('<comment>There are several matches for the '.$usage.' player named '. $playerName.'</comment>');
             foreach ($players as $key => $p) {
                 /* @var $p Player */
                 $this->_output->writeln(
@@ -173,7 +181,7 @@ class MergeEntitiesCommand extends ContainerAwareCommand
         } else if (count($players) == 1) {
             $player = reset($players);
         } else {
-            $this->_output->writeln('<error>No player found with a name containing '. $playername.'</error>');
+            $this->_output->writeln('<error>No player found with a name containing '. $playerName.'</error>');
         }
         return $player;
     }

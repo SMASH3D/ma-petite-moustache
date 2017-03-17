@@ -4,7 +4,6 @@ namespace StatsBundle\Controller;
 
 use StatsBundle\Entity\Player;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Player controller.
@@ -15,6 +14,7 @@ class PlayerController extends Controller
     /**
      * Lists all player entities.
      *
+     * @return void
      */
     public function indexAction()
     {
@@ -30,6 +30,9 @@ class PlayerController extends Controller
     /**
      * Finds and displays a player entity.
      *
+     * @param Player $player the player
+     *
+     * @return void
      */
     public function showAction(Player $player)
     {

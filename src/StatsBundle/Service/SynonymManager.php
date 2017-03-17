@@ -3,7 +3,6 @@
 namespace StatsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 use StatsBundle\Entity\Synonym;
 use StatsBundle\Entity\Player;
 use StatsBundle\Entity\RealTeam;
@@ -17,7 +16,7 @@ class SynonymManager
      * @var EntityManager
      */
     protected $_em;
-    
+
     /**
      * SynonymManager constructor. We need to inject this variables later.
      *
