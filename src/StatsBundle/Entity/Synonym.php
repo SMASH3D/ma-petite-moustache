@@ -47,15 +47,14 @@ class Synonym
     private $player;
 
     /**
-     * @var \StatsBundle\Entity\Real_Team
+     * @var \StatsBundle\Entity\RealTeam
      */
     private $team;
-
 
     /**
      * Set playerId
      *
-     * @param integer $playerId
+     * @param integer $playerId the playerId
      *
      * @return Synonym
      */
@@ -79,7 +78,7 @@ class Synonym
     /**
      * Set teamId
      *
-     * @param integer $teamId
+     * @param integer $teamId the teamId
      *
      * @return Synonym
      */
@@ -103,7 +102,7 @@ class Synonym
     /**
      * Set actualName
      *
-     * @param string $actualName
+     * @param string $actualName the actual name
      *
      * @return Synonym
      */
@@ -127,7 +126,7 @@ class Synonym
     /**
      * Set synonym
      *
-     * @param string $synonym
+     * @param string $synonym the synonym
      *
      * @return Synonym
      */
@@ -151,7 +150,7 @@ class Synonym
     /**
      * Set player
      *
-     * @param \StatsBundle\Entity\Player $player
+     * @param \StatsBundle\Entity\Player $player the player
      *
      * @return Synonym
      */
@@ -175,11 +174,11 @@ class Synonym
     /**
      * Set team
      *
-     * @param \StatsBundle\Entity\Real_Team $team
+     * @param \StatsBundle\Entity\RealTeam $team the team
      *
      * @return Synonym
      */
-    public function setTeam(\StatsBundle\Entity\Real_Team $team = null)
+    public function setTeam(\StatsBundle\Entity\RealTeam $team = null)
     {
         $this->team = $team;
 
