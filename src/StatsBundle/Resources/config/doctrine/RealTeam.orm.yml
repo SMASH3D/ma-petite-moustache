@@ -23,6 +23,9 @@ StatsBundle\Entity\RealTeam:
         players:
             targetEntity: Player
             mappedBy: real_team
+        synonyms:
+            targetEntity: Synonym
+            mappedBy: real_team
     fields:
         name:
             type: string

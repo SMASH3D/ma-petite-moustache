@@ -3,11 +3,11 @@
 namespace StatsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Proxies\__CG__\StatsBundle\Entity\RealTeam;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\Container;
-use StatsBundle\Entity\RealMatch;
 use StatsBundle\Entity\RealLeague;
+use StatsBundle\Entity\RealTeam;
+use StatsBundle\Entity\RealMatch;
 use StatsBundle\Entity\Player;
 use StatsBundle\Entity\PlayerRealMatch;
 

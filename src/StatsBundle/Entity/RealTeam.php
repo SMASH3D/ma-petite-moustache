@@ -102,6 +102,11 @@ class RealTeam
      * @var \Doctrine\Common\Collections\Collection
      */
     private $real_matches;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $synonyms;
 
     /**
      * Constructor
@@ -790,5 +795,39 @@ class RealTeam
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    /**
+     * Add synonym
+     *
+     * @param \StatsBundle\Entity\Synonym $synonym
+     *
+     * @return RealTeam
+     */
+    public function addSynonym(\StatsBundle\Entity\Synonym $synonym)
+    {
+        $this->synonyms[] = $synonym;
+
+        return $this;
+    }
+
+    /**
+     * Remove synonym
+     *
+     * @param \StatsBundle\Entity\Synonym $synonym
+     */
+    public function removeSynonym(\StatsBundle\Entity\Synonym $synonym)
+    {
+        $this->synonyms->removeElement($synonym);
+    }
+
+    /**
+     * Get synonyms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSynonyms()
+    {
+        return $this->synonyms;
     }
 }

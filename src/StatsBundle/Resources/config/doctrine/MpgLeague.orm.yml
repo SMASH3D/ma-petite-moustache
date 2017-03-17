@@ -8,21 +8,20 @@ StatsBundle\Entity\MpgLeague:
             id: true
             generator:
                 strategy: AUTO
-    manyToOne:
-        real_league:
-            targetEntity: RealLeague
-            inversedBy: mpg_leagues
-            joinColumn:
-                name: real_league_id
-                referencedColumnName: id
-    oneToMany:
-        mpg_teams:
-            targetEntity: MpgTeam
-            mappedBy: mpg_league
-    oneToMany:
-        mpg_matches:
-            targetEntity: MpgMatch
-            mappedBy: mpg_match
+#    manyToOne:
+#        real_league:
+#            targetEntity: RealLeague
+#            inversedBy: mpg_leagues
+#            joinColumn:
+#                name: real_league_id
+#                referencedColumnName: id
+#    oneToMany:
+#        mpg_teams:
+#            targetEntity: MpgTeam
+#            mappedBy: mpg_league
+#        mpg_matches:
+#            targetEntity: MpgMatch
+#            mappedBy: mpg_match
     fields:
         name:
             type: string

@@ -10,3 +10,12 @@ services:
     stats.aggregator:
         class: StatsBundle\Service\Aggregator
         arguments: [ "@doctrine.orm.entity_manager" , "@service_container" ]
+    stats.player_manager:
+        class: StatsBundle\Service\PlayerManager
+        arguments: [ "@doctrine.orm.entity_manager" , "@service_container" ]
+    stats.real_team_manager:
+        class: StatsBundle\Service\RealTeamManager
+        arguments: [ "@doctrine.orm.entity_manager" , "@service_container" ]
+    stats.synonym_manager:
+        class: StatsBundle\Service\SynonymManager
+        arguments: [ "@doctrine.orm.entity_manager" , "@service_container" ]

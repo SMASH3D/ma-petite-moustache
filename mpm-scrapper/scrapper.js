@@ -41,6 +41,8 @@ function parseWeekData()
     return JSON.stringify(weekData);
 }
 
+//#############################  Player Quotations  #############################
+
 /**
 * Parses player data from quotation page 
 * to scrape data we don't have elsewhere : firstname, post and quotation 
@@ -76,6 +78,9 @@ function parseQuotationData()
     });
     return JSON.stringify(quotationData);
 }
+
+
+//#############################  Match details  #############################
 
 /**
 * Fetches match details 
@@ -199,10 +204,6 @@ function parseMatchDetails()
     return JSON.stringify(details);
 }
 
-
-//#############################  MPG matches  #############################
-
-//TODO
 //#############################  MPM app connector  #############################
 
 
@@ -211,14 +212,10 @@ function pushToMPM(type, jsonData)
     var baseUrl = 'https://ma-petite-moustache.lxc/app.php/';
     if (type == 'real_match_details') {
         targetUrl = baseUrl+'pushMatchDetails';
-        console.log('pushing match details');
-        console.log(jsonData);
     } else if (type == 'real_week_summary') {
         targetUrl = baseUrl+'pushWeekSummary';
     } else if (type == 'player_details') {
         targetUrl = baseUrl+'pushPlayerQuotations';
-        console.log('pushing player quotations');
-        console.log(jsonData);
     }
     $.ajax({
         type: "POST",

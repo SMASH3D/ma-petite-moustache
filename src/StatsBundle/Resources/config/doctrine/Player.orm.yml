@@ -27,6 +27,9 @@ StatsBundle\Entity\Player:
         player_real_matches:
             targetEntity: PlayerRealMatch
             mappedBy: player
+        synonyms:
+            targetEntity: Synonym
+            mappedBy: player
     fields:
         realLeagueId:
             type: integer
@@ -50,6 +53,8 @@ StatsBundle\Entity\Player:
         price:
             type: smallint
             nullable: true
+            options:
+                default: 0
         realTeamId:
             type: integer
             column: real_team_id

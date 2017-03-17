@@ -11,7 +11,7 @@ StatsBundle\Entity\RealMatch:
     manyToOne:
         home_team:
             targetEntity: RealTeam
-            inversedBy: home_teams
+            inversedBy: home_matches
             joinColumn:
                 onDelete: CASCADE
                 name: home_team_id
@@ -25,7 +25,7 @@ StatsBundle\Entity\RealMatch:
                 referencedColumnName: id
         away_team:
             targetEntity: RealTeam
-            inversedBy: away_teams
+            inversedBy: away_matches
             joinColumn:
                 onDelete: CASCADE
                 name: away_team_id

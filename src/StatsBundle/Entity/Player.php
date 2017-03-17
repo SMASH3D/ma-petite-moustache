@@ -221,7 +221,11 @@ class Player
      * @var integer
      */
     private $suspendedUntilDay;
-
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $synonyms;
 
     /**
      * Get id
@@ -1575,5 +1579,39 @@ class Player
     public function getRealTeam()
     {
         return $this->real_team;
+    }
+
+    /**
+     * Add synonym
+     *
+     * @param \StatsBundle\Entity\Synonym $synonym
+     *
+     * @return Player
+     */
+    public function addSynonym(\StatsBundle\Entity\Synonym $synonym)
+    {
+        $this->synonyms[] = $synonym;
+
+        return $this;
+    }
+
+    /**
+     * Remove synonym
+     *
+     * @param \StatsBundle\Entity\Synonym $synonym
+     */
+    public function removeSynonym(\StatsBundle\Entity\Synonym $synonym)
+    {
+        $this->synonyms->removeElement($synonym);
+    }
+
+    /**
+     * Get synonyms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSynonyms()
+    {
+        return $this->synonyms;
     }
 }
