@@ -3,8 +3,6 @@
 namespace StatsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\DependencyInjection\Container;
 use StatsBundle\Entity\RealLeague;
 use StatsBundle\Entity\RealTeam;
 use StatsBundle\Entity\RealMatch;
@@ -27,18 +25,18 @@ class Aggregator
     /**
      * @var EntityManager
      */
-    protected $em;
+    protected $_em;
 
     /**
-     * @var Container
+     * Aggregator constructor.
+     *
+     * @param EntityManager $entityManager the em
+     *
+     * @return Aggregator
      */
-    private $container;
-
-    // We need to inject this variables later.
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $entityManager;
-        $this->container = $container;
+        $this->_em = $entityManager;
     }
 
 
@@ -49,7 +47,7 @@ class Aggregator
      *
      * @return integer $code the return code
      */
-    public function aggregateMatchDetails($matchDetails)
+    public function aggregateMatchDetails(array $matchDetails)
     {
         $this->_matchDetails = $matchDetails;
         $league = $this->_getLeague($matchDetails['championship']);
@@ -67,7 +65,7 @@ class Aggregator
      * 
      * @return integer $code the return code
      */
-    public function aggregateWeekSummary($weekData)
+    public function aggregateWeekSummary(array $weekData)
     {
         $this->_weekSummary = $weekData;
         $league = $this->_getLeague($this->_weekSummary['championshipID'], $this->_weekSummary['championship']);
@@ -79,7 +77,14 @@ class Aggregator
         return $code;
     }
 
-    public function aggregatePlayerQuotations($playerQuotations)
+    /**
+     * aggregatePlayerQuotations
+     *
+     * @param array $playerQuotations player quotations
+     *
+     * @return string $code
+     */
+    public function aggregatePlayerQuotations(array $playerQuotations)
     {
         $this->_playerQuotations = $playerQuotations;
         $league = $this->_getLeague($this->_playerQuotations['championshipID'], $this->_playerQuotations['championship']);
@@ -87,7 +92,14 @@ class Aggregator
         return $code;
     }
 
-    private function _setPlayersQuotations($league)
+    /**
+     * _setPlayersQuotations
+     *
+     * @param RealLeague $league the league
+     *
+     * @return void
+     */
+    private function _setPlayersQuotations(RealLeague $league)
     {
         $this->_getPlayersArray($league);
         foreach ($this->_playerQuotations['players'] as $playerQuotation) {
@@ -110,11 +122,18 @@ class Aggregator
             $player->setFirstname(trim($playerQuotation['f']));
             $player->setPrice(trim($playerQuotation['q']));
             $player->setRole(trim($playerQuotation['p']));
-            $this->em->persist($player);
+            $this->_em->persist($player);
         }
-        $this->em->flush();
+        $this->_em->flush();
     }
 
+    /**
+     * _updatePlayers
+     *
+     * @param RealLeague $league the league
+     *
+     * @return void
+     */
     private function _updatePlayers($league) 
     {
         //Read all playermatches and update player accordingly
@@ -130,6 +149,13 @@ class Aggregator
         }*/
     }
 
+    /**
+    private function _aggregatePlayerData($player)
+     *
+     * @param Player $player the player
+     *
+     * @return void
+     */
     private function _aggregatePlayerData($player)
     {
         /*$playermatchs = $this->em
@@ -171,7 +197,7 @@ class Aggregator
      */
     private function _getLeague($championshipId, $name = null)
     {
-        $league = $this->em
+        $league = $this->_em
             ->getRepository('StatsBundle:RealLeague')
             ->findOneBy(array('mpgId' => $championshipId));
         $needDbUpdate = false;
@@ -188,7 +214,7 @@ class Aggregator
         }
 
         if ($needDbUpdate) {
-            $em = $this->em;
+            $em = $this->_em;
             $em->persist($league);
             $em->flush();
         }
@@ -199,9 +225,11 @@ class Aggregator
     /**
      * _setMatchDetails
      *
-     * @param $league
+     * @param RealLeague $league the league
+     *
+     * @return string $code
      */
-    private function _setMatchDetails($league)
+    private function _setMatchDetails(RealLeague $league)
     {
         $this->_code = 201;
         $matchId = (isset($this->_matchDetails['match']) ? $this->_matchDetails['match'] : null);
@@ -243,7 +271,7 @@ class Aggregator
      *
      * @return void
      */
-    private function _updatePlayerMatchDetails($playerMatch, $details)
+    private function _updatePlayerMatchDetails(PlayerRealMatch $playerMatch, array $details)
     {
         if (!empty($details)) {
             $this->_code = 200;
@@ -256,22 +284,25 @@ class Aggregator
             $playerMatch->setOwnGoals($details['own_goals']);
 
             $playerMatch->setRating($details['rating']);
-            $this->em->persist($playerMatch);
-            $this->em->flush();
+            $this->_em->persist($playerMatch);
+            $this->_em->flush();
         } else {
             $this->_code = 300;
         }
     }
 
     /**
-     * @param Player   $player
-     * @param integer  $matchID
+     * _getRealMatch
+     *
+     * @param integer    $matchID the matchID
+     * @param array      $details details
+     * @param RealLeague $league  the league
      *
      * @return array|PlayerRealMatch
      */
-    private function _getRealMatch($matchID, $details, $league)
+    private function _getRealMatch($matchID, array $details, RealLeague $league)
     {
-        $realMatch = $this->em
+        $realMatch = $this->_em
             ->getRepository('StatsBundle:RealMatch')
             ->findOneBy(
                 array(
@@ -295,8 +326,8 @@ class Aggregator
         $realMatch->setHomeTeam($homeTeam);
         $realMatch->setAwayTeam($awayTeam);
 
-        $this->em->persist($realMatch);
-        $this->em->flush();
+        $this->_em->persist($realMatch);
+        $this->_em->flush();
 
         return $realMatch;
     }
@@ -304,14 +335,14 @@ class Aggregator
     /**
      * _getPlayerMatch
      *
-     * @param Player   $player  the player
-     * @param Match    $match   the match
+     * @param Player    $player the player
+     * @param RealMatch $match  the match
      *
      * @return array|PlayerRealMatch
      */
-    private function _getPlayerMatch($player, $match)
+    private function _getPlayerMatch(Player $player, RealMatch $match)
     {
-        $playerMatch = $this->em
+        $playerMatch = $this->_em
             ->getRepository('StatsBundle:PlayerRealMatch')
             ->findOneBy(
                 array(
@@ -327,8 +358,8 @@ class Aggregator
             $playerMatch->setRealMatchId($match->getId());
             $playerMatch->setPlayer($player);
             $playerMatch->setPlayerId($player->getId());
-            $this->em->persist($playerMatch);
-            $this->em->flush();
+            $this->_em->persist($playerMatch);
+            $this->_em->flush();
         }
         return $playerMatch;
     }
@@ -342,9 +373,9 @@ class Aggregator
      *
      * @return mixed|Player
      */
-    private function _getPlayer($lastname, $team)
+    private function _getPlayer($lastname, RealTeam $team)
     {
-        $player = $this->em
+        $player = $this->_em
             ->getRepository('StatsBundle:Player')
             ->findOneBy(
                 array(
@@ -360,8 +391,8 @@ class Aggregator
             $player->setLastname($lastname);
             $player->setRealTeam($team);
             $player->setRealLeague($team->getRealLeague());
-            $this->em->persist($player);
-            $this->em->flush();
+            $this->_em->persist($player);
+            $this->_em->flush();
         }
         return $player;
     }
@@ -375,10 +406,10 @@ class Aggregator
      *
      * @return array
      */
-    private function _getPlayersArray($league)
+    private function _getPlayersArray(RealLeague $league)
     {
         if (empty($this->_playersArray)) {
-            $players = $this->em
+            $players = $this->_em
                 ->getRepository('StatsBundle:Player')
                 ->findBy(
                     array(
@@ -409,7 +440,7 @@ class Aggregator
         $week = (isset($this->_weekSummary['week']) ? $this->_weekSummary['week'] : null);
         $games = (isset($this->_weekSummary['games']) ? $this->_weekSummary['games'] : array());
 
-        $realMatches = $this->em
+        $realMatches = $this->_em
             ->getRepository('StatsBundle:RealMatch')
             ->findBy(array('mpgId' => array_keys($games)));
         //loop through existing matches to see whether we have something to update
@@ -437,12 +468,12 @@ class Aggregator
                 $this->_realMatches[]=$realMatch;
             }
             if ($needDbUpdate && $realMatch->getHomeTeam()) {
-                $this->em->persist($realMatch);
+                $this->_em->persist($realMatch);
             }
         }
 
         if ($needDbUpdate) {
-            $this->em->flush();
+            $this->_em->flush();
             $code = 200;
         }
         return $code;
@@ -451,14 +482,14 @@ class Aggregator
     /**
      * returns team by name. Creates the team if not found
      *
-     * @param string                         $name   name of the team
-     * @param \StatsBundle\Entity\RealLeague $league the league
+     * @param string     $name   name of the team
+     * @param RealLeague $league the league
      *
-     * @return \StatsBundle\Entity\RealTeam $team
+     * @return RealTeam $team
      */
-    private function _getTeamByName($name, $league)
+    private function _getTeamByName($name, RealLeague $league)
     {
-        $realTeam = $this->em
+        $realTeam = $this->_em
             ->getRepository('StatsBundle:RealTeam')
             ->findOneBy(
                 array(
@@ -472,8 +503,8 @@ class Aggregator
             $team->setName($name);
             $team->setRealLeague($league);
             $this->_teamsArray[$team->getName()] = $team;
-            $this->em->persist($team);
-            $this->em->flush();
+            $this->_em->persist($team);
+            $this->_em->flush();
         }
         return $realTeam;
     }
@@ -488,7 +519,7 @@ class Aggregator
     private function _getTeamsArray($championshipId)
     {
         if (empty($this->_teamsArray)) {
-            $realTeams = $this->em
+            $realTeams = $this->_em
                 ->getRepository('StatsBundle:RealTeam')
                 ->findBy(array('real_league' => $championshipId));
             foreach ($realTeams as $realTeam) {
@@ -523,9 +554,13 @@ class Aggregator
     }
 
     /**
-     * @param $league
+     * _updateWeekData
+     *
+     * @param RealLeague $league the league
+     *
+     * @return void
      */
-    private function _updateWeekData($league)
+    private function _updateWeekData(RealLeague $league)
     {
         $this->_teamsArrayById = $this->_getTeamsArrayById($league->getId());
         /* @var RealMatch $realMatch */
@@ -600,46 +635,50 @@ class Aggregator
             }
 
             if ($aggregateHome) {
-                $this->em->persist($homeTeam);
+                $this->_em->persist($homeTeam);
             }
 
             if ($aggregateAway) {
-                $this->em->persist($awayTeam);
+                $this->_em->persist($awayTeam);
             }
         }
-        $this->em->flush();
+        $this->_em->flush();
     }
 
     /**
-     * @param $league
+     * updateRankings
+     *
+     * @param RealLeague $league the league
+     *
      * @return array
      */
-    public function updateRankings($league)
+    public function updateRankings(RealLeague $league)
     {
-        $realTeams = $this->em ->getRepository('StatsBundle:RealTeam')
+        $realTeams = $this->_em ->getRepository('StatsBundle:RealTeam')
             ->findBy(array('real_league' => $league->getId()));
 
         $teamAmount = $league->getTeamAmount();
 
-        usort($realTeams, function($a, $b) {
+        usort(
+            $realTeams, function ($a, $b) {
+                /* @var RealTeam $a*/
+                /* @var RealTeam $b*/
+                if ($a->getPoints() < $b->getPoints()) return -1;
+                if ($a->getPoints() > $b->getPoints()) return 1;
+                if ($a->getGoalAverage() < $b->getGoalAverage()) return -1;
+                if ($a->getGoalAverage() > $b->getGoalAverage()) return 1;
+                if ($a->getSeasonGoalsScored() < $b->getSeasonGoalsScored()) return -1;
+                if ($a->getSeasonGoalsScored() > $b->getSeasonGoalsScored()) return 1;
 
-            /* @var RealTeam $a*/
-            /* @var RealTeam $b*/
-            if ($a->getPoints() < $b->getPoints()) return -1;
-            if ($a->getPoints() > $b->getPoints()) return 1;
-            if ($a->getGoalAverage() < $b->getGoalAverage()) return -1;
-            if ($a->getGoalAverage() > $b->getGoalAverage()) return 1;
-            if ($a->getSeasonGoalsScored() < $b->getSeasonGoalsScored()) return -1;
-            if ($a->getSeasonGoalsScored() > $b->getSeasonGoalsScored()) return 1;
-
-            return 0;
-        });
+                return 0;
+            }
+        );
         foreach ($realTeams as $id => $realTeam) {
             $realTeam->setRank($teamAmount - $id);
-            $this->em->persist($realTeam);
+            $this->_em->persist($realTeam);
         }
 
-        $this->em->flush();
+        $this->_em->flush();
         return $realTeams;
     }
 }

@@ -3,11 +3,6 @@
 namespace StatsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\DependencyInjection\Container;
-use StatsBundle\Entity\RealMatch;
-use StatsBundle\Entity\RealLeague;
-use StatsBundle\Entity\RealTeam;
 use StatsBundle\Entity\Player;
 use StatsBundle\Entity\PlayerRealMatch;
 
@@ -19,23 +14,16 @@ class PlayerManager
     /**
      * @var EntityManager
      */
-    protected $em;
-
-    /**
-     * @var Container
-     */
-    private $container;
+    protected $_em;
 
     /**
      * PlayerManager constructor. We need to inject this variables later.
      *
      * @param EntityManager $entityManager the em
-     * @param Container     $container     the container
      */
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $entityManager;
-        $this->container = $container;
+        $this->_em = $entityManager;
     }
 
     /**
@@ -46,12 +34,12 @@ class PlayerManager
      *
      * @return void
      */
-    public function merge($mainPlayer, $secondaryPlayer)
+    public function merge(Player $mainPlayer, Player $secondaryPlayer)
     {
         foreach ($secondaryPlayer->getPlayerRealMatches() as $playerRealMatch) {
             /* @var $playerRealMatch PlayerRealMatch */
             $playerRealMatch->setPlayer($mainPlayer);
-            $this->em->persist($playerRealMatch);
+            $this->_em->persist($playerRealMatch);
         }
         //anything is better than nothing \o/
         if (is_null($mainPlayer->getFirstname())) {
@@ -63,7 +51,7 @@ class PlayerManager
         if (is_null($mainPlayer->getPrice())) {
             $mainPlayer->setPrice($secondaryPlayer->getPrice());
         }
-        $this->em->remove($secondaryPlayer);
-        $this->em->flush();
+        $this->_em->remove($secondaryPlayer);
+        $this->_em->flush();
     }
 }

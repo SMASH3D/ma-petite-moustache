@@ -3,36 +3,29 @@
 namespace StatsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\DependencyInjection\Container;
 use StatsBundle\Entity\RealMatch;
-use StatsBundle\Entity\RealLeague;
 use StatsBundle\Entity\RealTeam;
-use StatsBundle\Entity\Player;
-use StatsBundle\Entity\PlayerRealMatch;
 
 /**
  * RealTeamManager
  */
 class RealTeamManager
 {
-
-
     /**
      * @var EntityManager
      */
-    protected $em;
+    protected $_em;
 
     /**
-     * @var Container
+     * RealTeamManager constructor.
+     *
+     * @param EntityManager $entityManager the em
+     *
+     * @return RealTeamManager
      */
-    private $container;
-
-    // We need to inject this variables later.
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $entityManager;
-        $this->container = $container;
+        $this->_em = $entityManager;
     }
 
     /**
@@ -43,7 +36,7 @@ class RealTeamManager
      *
      * @return void
      */
-    public function merge($mainTeam, $secondaryTeam)
+    public function merge(RealTeam $mainTeam, RealTeam $secondaryTeam)
     {
         foreach ($secondaryTeam->getRealMatches() as $realMatch) {
             /* @var $realMatch RealMatch */
@@ -52,9 +45,9 @@ class RealTeamManager
             } else {
                 $realMatch->setHomeTeam($mainTeam);
             }
-            $this->em->persist($realMatch);
+            $this->_em->persist($realMatch);
         }
-        $this->em->remove($secondaryTeam);
-        $this->em->flush();
+        $this->_em->remove($secondaryTeam);
+        $this->_em->flush();
     }
 }

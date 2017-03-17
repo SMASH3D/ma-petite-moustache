@@ -16,25 +16,18 @@ class SynonymManager
     /**
      * @var EntityManager
      */
-    protected $em;
-
-    /**
-     * @var Container
-     */
-    private $container;
-
+    protected $_em;
+    
     /**
      * SynonymManager constructor. We need to inject this variables later.
      *
      * @param EntityManager $entityManager the entity manage
-     * @param Container     $container     the container
      *
      * @return SynonymManager
      */
-    public function __construct(EntityManager $entityManager, Container $container)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $entityManager;
-        $this->container = $container;
+        $this->_em = $entityManager;
     }
 
     /**
@@ -59,7 +52,7 @@ class SynonymManager
 
         $synonym->setSynonym($aka);
 
-        $this->em->persist($synonym);
-        $this->em->flush();
+        $this->_em->persist($synonym);
+        $this->_em->flush();
     }
 }
