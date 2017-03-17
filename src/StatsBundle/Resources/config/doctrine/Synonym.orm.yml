@@ -17,7 +17,7 @@ StatsBundle\Entity\Synonym:
                 onDelete: CASCADE
                 name: player_id
                 referencedColumnName: id
-        team:
+        realTeam:
             targetEntity: RealTeam
             inversedBy: synonyms
             joinColumn:

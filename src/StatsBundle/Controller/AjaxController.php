@@ -49,9 +49,9 @@ class AjaxController extends Controller
      */
     public function pushMatchDetailsAction()
     {
-        $matchDetails = $this->_getJsonInput();
-        $code = $this->_processMatchDetails($matchDetails);
-        return $this->_sendFeedback($code);
+        $matchDetails = $this->getJsonInput();
+        $code = $this->processMatchDetails($matchDetails);
+        return $this->sendFeedback($code);
     }
 
     /**
@@ -168,7 +168,7 @@ class AjaxController extends Controller
      * processPlayerQuotations
      *
      * @param array $playerQuotations the quotations
-     * 
+     *
      * @return int|string
      */
     protected function processPlayerQuotations($playerQuotations)

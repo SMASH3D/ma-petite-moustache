@@ -194,4 +194,18 @@ class Synonym
     {
         return $this->realTeam;
     }
+
+    /**
+     * Set realTeam
+     *
+     * @param \StatsBundle\Entity\RealTeam $realTeam
+     *
+     * @return Synonym
+     */
+    public function setRealTeam(\StatsBundle\Entity\RealTeam $realTeam = null)
+    {
+        $this->realTeam = $realTeam;
+
+        return $this;
+    }
 }
