@@ -51,6 +51,11 @@ class RealLeague
     private $upcomingWeek;
 
     /**
+     * @var integer
+     */
+    private $mpgId;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $real_teams;
@@ -59,6 +64,11 @@ class RealLeague
      * @var \Doctrine\Common\Collections\Collection
      */
     private $real_matches;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $players;
 
     /**
      * Constructor
@@ -71,6 +81,8 @@ class RealLeague
         $this->setTeamAmount(self::DEFAULT_TEAM_AMOUNT);
         $this->setCountryCodeFromChampionshipId($mpgId);
         $this->real_teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->real_matches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -236,10 +248,6 @@ class RealLeague
     {
         return $this->real_teams;
     }
-    /**
-     * @var integer
-     */
-    private $mpgId;
 
 
     /**
@@ -314,5 +322,39 @@ class RealLeague
     public function getRealMatches()
     {
         return $this->real_matches;
+    }
+
+    /**
+     * Add Player
+     *
+     * @param \StatsBundle\Entity\RealMatch $player
+     *
+     * @return RealLeague
+     */
+    public function addPlayer(\StatsBundle\Entity\Player $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove Player
+     *
+     * @param \StatsBundle\Entity\RealMatch $player
+     */
+    public function removePlayer(\StatsBundle\Entity\Player $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get Players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }

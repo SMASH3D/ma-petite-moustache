@@ -12,7 +12,7 @@ StatsBundle\Entity\Synonym:
     manyToOne:
         player:
             targetEntity: Player
-            inversedBy: player_synonyms
+            inversedBy: synonyms
             joinColumn:
                 onDelete: CASCADE
                 name: player_id

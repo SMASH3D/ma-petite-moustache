@@ -7,18 +7,3 @@ player_show:
     path:     /{id}/show
     defaults: { _controller: "StatsBundle:Player:show" }
     methods:  GET
-
-player_new:
-    path:     /new
-    defaults: { _controller: "StatsBundle:Player:new" }
-    methods:  [GET, POST]
-
-player_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "StatsBundle:Player:edit" }
-    methods:  [GET, POST]
-
-player_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "StatsBundle:Player:delete" }
-    methods:  DELETE
