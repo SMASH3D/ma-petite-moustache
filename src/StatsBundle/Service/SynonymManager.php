@@ -44,6 +44,7 @@ class SynonymManager
         if ($mainEntity instanceof Player) {
             $synonym->setPlayer($mainEntity);
             $synonym->setActualName($mainEntity->getLastname());
+            $synonym->setTeam($mainEntity->getRealTeam());
         } else if ($mainEntity instanceof RealTeam) {
             $synonym->setTeam($mainEntity);
             $synonym->setActualName($mainEntity->getName());
@@ -53,5 +54,34 @@ class SynonymManager
 
         $this->_em->persist($synonym);
         $this->_em->flush();
+    }
+
+    /**
+     * tries whether a player name is a synonym for the same player
+     *
+     * @param string  $name       the name sent by the parser
+     * @param integer $realTeamId the teamID
+     *
+     * @return null/string
+     */
+    public function getIsSynonymFor($name, $realTeamId)
+    {
+        $aka = null;
+        $synonym = $this->_em
+            ->getRepository('StatsBundle:Synonym')
+            ->createQueryBuilder('s')
+            ->where('s.synonym = :name')
+            ->andWhere('s.teamId = :teamId')
+            ->setParameter('name', $name)
+            ->setParameter('teamId', $realTeamId)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getResult();
+
+        if (!empty($synonym)) {
+            $aka = reset($synonym)->getActualName();
+        }
+
+        return $aka;
     }
 }

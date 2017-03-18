@@ -7,6 +7,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use StatsBundle\Entity\Player;
+use StatsBundle\Service\PlayerManager;
+use StatsBundle\Service\RealTeamManager;
+use StatsBundle\Service\SynonymManager;
 
 /**
  * Class MergeEntitiesCommand
@@ -66,16 +69,33 @@ class MergeEntitiesCommand extends ContainerAwareCommand
 
         $this->_mainName = $input->getArgument('main_name');
         $this->_secondaryName = $input->getArgument('synonym');
-        $this->_merge = $input->getArgument('merge');
+        $this->_merge = $input->getArgument('merge') == 'merge';
 
+        /** @var  $synonymManager SynonymManager*/
+        $synonymManager = $this->getContainer()->get('stats.synonym_manager');
+        
         if ($input->getArgument('type') == 'team') {
+            /** @var  $manager RealTeamManager*/
             $manager = $this->getContainer()->get('stats.real_team_manager');
             $mainEntity = $this->getTeam($this->_mainName, 'main');
             $secondaryEntity = $this->getTeam($this->_secondaryName, 'secondary');
+            if ($synonymManager->getIsSynonymFor($secondaryEntity->getName(), $mainEntity->getId()) === null) {
+                $synonymManager->addSynonym($mainEntity, $secondaryEntity->getName());
+                $this->_output->writeln(
+                    "<info>Added {$secondaryEntity->getName()} as synonym for {$mainEntity->getName()} {$mainEntity->getName()}</info>"
+                );
+            }
         } else {
+            /** @var  $manager PlayerManager*/
             $manager = $this->getContainer()->get('stats.player_manager');
             $mainEntity = $this->choosePlayerAmongHomonyms($this->_mainName, 'main');
             $secondaryEntity = $this->choosePlayerAmongHomonyms($this->_secondaryName, 'secondary');
+            if ($synonymManager->getIsSynonymFor($secondaryEntity->getLastname(), $mainEntity->getRealTeam()->getId()) === null) {
+                $synonymManager->addSynonym($mainEntity, $secondaryEntity->getLastname());
+                $this->_output->writeln(
+                    "<info>Added {$secondaryEntity->getLastname()} as synonym for {$mainEntity->getFirstname()} {$mainEntity->getLastname()}</info>"
+                );
+            }
         }
 
         if ($this->_merge) {

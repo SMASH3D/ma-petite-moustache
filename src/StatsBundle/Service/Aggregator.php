@@ -109,14 +109,22 @@ class Aggregator
                 $player = $teamplayers[$playerQuotation['l']];
                 /** @var $player Player */
             } else {
-                $this->_code = 200;
-                //$player doesn't seem to exist yet
-                $player = New Player();
-
-                $player->setLastname(trim($playerQuotation['l']));
                 $team = $this->getTeamByName($playerQuotation['t'], $league);
-                $player->setRealTeam($team);
-                $player->setRealLeague($team->getRealLeague());
+                $lastname = trim($playerQuotation['l']);
+                /** @var  $synonymManager SynonymManager*/
+                $synonymManager = $this->getContainer()->get('stats.synonym_manager');
+                $synonymFor = $synonymManager->getIsSynonymFor($lastname, $team->getId());
+                if ($synonymFor !== null && isset($teamplayers[$synonymFor])) {
+                    $player = $teamplayers[$lastname];
+                } else {
+                    $this->_code = 200;
+                    //$player doesn't seem to exist yet
+                    $player = New Player();
+
+                    $player->setLastname($lastname);
+                    $player->setRealTeam($team);
+                    $player->setRealLeague($team->getRealLeague());
+                }
             }
 
             $player->setFirstname(trim($playerQuotation['f']));
@@ -125,6 +133,7 @@ class Aggregator
             $this->_em->persist($player);
         }
         $this->_em->flush();
+        return $this->_code;
     }
 
     /**
@@ -375,6 +384,14 @@ class Aggregator
      */
     private function getPlayer($lastname, RealTeam $team)
     {
+
+        /** @var  $synonymManager SynonymManager*/
+        $synonymManager = $this->getContainer()->get('stats.synonym_manager');
+        $synonymFor = $synonymManager->getIsSynonymFor($lastname, $team->getId());
+        if ($synonymFor !== null) {
+            $lastname = $synonymFor;
+        }
+
         $player = $this->_em
             ->getRepository('StatsBundle:Player')
             ->findOneBy(
@@ -399,8 +416,6 @@ class Aggregator
 
     /**
      * fetches existing players for a team and returns them in an array indexed on their lastname
-     *
-     * BUGGED - DO NOT USE : CAUSES AWAY TEAM PLAYERS DUPLICATION
      *
      * @param RealLeague $league the current league
      *
