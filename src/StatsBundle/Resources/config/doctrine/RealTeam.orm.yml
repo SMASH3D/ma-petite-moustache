@@ -19,10 +19,10 @@ StatsBundle\Entity\RealTeam:
     oneToMany:
         home_matches:
             targetEntity: RealMatch
-            mappedBy: real_team
+            mappedBy: home_matches
         away_matches:
             targetEntity: RealMatch
-            mappedBy: real_team
+            mappedBy: away_matches
         players:
             targetEntity: Player
             mappedBy: real_team
