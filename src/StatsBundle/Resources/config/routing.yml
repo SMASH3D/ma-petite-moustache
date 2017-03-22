@@ -31,10 +31,3 @@ push_player_quotations:
     path:     /pushPlayerQuotations
     defaults: { _controller: StatsBundle:Ajax:pushPlayerQuotations }
 
-get_player_insight:
-    path:     /getPlayerInsight
-    defaults: { _controller: StatsBundle:Ajax:getPlayerInsight }
-
-get_team_insight:
-    path:     /getTeamInsight
-    defaults: { _controller: StatsBundle:Ajax:getTeamInsight }
