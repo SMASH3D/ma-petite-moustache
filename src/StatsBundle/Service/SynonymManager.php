@@ -64,7 +64,7 @@ class SynonymManager
      *
      * @return null/string
      */
-    public function isSynonymFor($name, $realTeamId)
+    public function getSynonymFor($name, $realTeamId)
     {
         $aka = null;
         $synonym = $this->_em

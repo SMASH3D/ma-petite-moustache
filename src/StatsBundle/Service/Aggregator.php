@@ -123,7 +123,7 @@ class Aggregator
                 $lastname = trim($playerQuotation['l']);
                 /** @var  $synonymManager SynonymManager*/
                 $synonymManager = $this->getContainer()->get('stats.synonym_manager');
-                $synonymFor = $synonymManager->isSynonymFor($lastname, $team->getId());
+                $synonymFor = $synonymManager->getSynonymFor($lastname, $team->getId());
                 if ($synonymFor !== null && isset($teamplayers[$synonymFor])) {
                     $player = $teamplayers[$lastname];
                 } else {
@@ -470,7 +470,7 @@ class Aggregator
      */
     private function getPlayer($lastname, RealTeam $team)
     {
-        $synonymFor = $this->_synonymManager->isSynonymFor($lastname, $team->getId());
+        $synonymFor = $this->_synonymManager->getSynonymFor($lastname, $team->getId());
         if ($synonymFor !== null) {
             $lastname = $synonymFor;
         }

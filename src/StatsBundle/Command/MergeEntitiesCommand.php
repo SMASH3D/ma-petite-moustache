@@ -79,7 +79,7 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             $manager = $this->getContainer()->get('stats.real_team_manager');
             $mainEntity = $this->getTeam($this->_mainName, 'main');
             $secondaryEntity = $this->getTeam($this->_secondaryName, 'secondary');
-            if ($synonymManager->isSynonymFor($secondaryEntity->getName(), $mainEntity->getId()) === null) {
+            if ($synonymManager->getSynonymFor($secondaryEntity->getName(), $mainEntity->getId()) === null) {
                 $synonymManager->addSynonym($mainEntity, $secondaryEntity->getName());
                 $this->_output->writeln(
                     "<info>Added {$secondaryEntity->getName()} as synonym for {$mainEntity->getName()} {$mainEntity->getName()}</info>"
@@ -90,7 +90,7 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             $manager = $this->getContainer()->get('stats.player_manager');
             $mainEntity = $this->choosePlayerAmongHomonyms($this->_mainName, 'main');
             $secondaryEntity = $this->choosePlayerAmongHomonyms($this->_secondaryName, 'secondary');
-            if ($synonymManager->isSynonymFor($secondaryEntity->getLastname(), $mainEntity->getRealTeam()->getId()) === null) {
+            if ($synonymManager->getSynonymFor($secondaryEntity->getLastname(), $mainEntity->getRealTeam()->getId()) === null) {
                 $synonymManager->addSynonym($mainEntity, $secondaryEntity->getLastname());
                 $this->_output->writeln(
                     "<info>Added {$secondaryEntity->getLastname()} as synonym for {$mainEntity->getFirstname()} {$mainEntity->getLastname()}</info>"
