@@ -326,7 +326,7 @@ class Aggregator
         $awayTeam = $this->getTeamByName($this->_matchDetails['awayTeam']['name'], $league);
 
         $hash = hash('sha1', serialize($this->_matchDetails));
-        //if ($hash != $match->getDataHash()) {
+        if ($hash != $match->getDataHash()) {
             $this->_code = 200;
             $match->setDataHash($hash);
             $this->_updatedTeams[] = $homeTeam->getId();
@@ -355,7 +355,7 @@ class Aggregator
                 $playerMatch = $this->getPlayerMatch($player, $match);
                 $this->updatePlayerMatchDetails($playerMatch, $playerPerformance);
             }
-        //}
+        }
 
         return $match;
     }

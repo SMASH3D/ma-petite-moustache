@@ -17,7 +17,10 @@ StatsBundle\Entity\RealTeam:
                 name: real_league_id
                 referencedColumnName: id
     oneToMany:
-        real_matches:
+        home_matches:
+            targetEntity: RealMatch
+            mappedBy: real_team
+        away_matches:
             targetEntity: RealMatch
             mappedBy: real_team
         players:

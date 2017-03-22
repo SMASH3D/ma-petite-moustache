@@ -114,6 +114,16 @@ class RealTeam
     private $synonyms;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $home_matches;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $away_matches;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -831,5 +841,73 @@ class RealTeam
     public function getSynonyms()
     {
         return $this->synonyms;
+    }
+
+    /**
+     * Add homeMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $homeMatch
+     *
+     * @return RealTeam
+     */
+    public function addHomeMatch(\StatsBundle\Entity\RealMatch $homeMatch)
+    {
+        $this->home_matches[] = $homeMatch;
+
+        return $this;
+    }
+
+    /**
+     * Remove homeMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $homeMatch
+     */
+    public function removeHomeMatch(\StatsBundle\Entity\RealMatch $homeMatch)
+    {
+        $this->home_matches->removeElement($homeMatch);
+    }
+
+    /**
+     * Get homeMatches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHomeMatches()
+    {
+        return $this->home_matches;
+    }
+
+    /**
+     * Add awayMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $awayMatch
+     *
+     * @return RealTeam
+     */
+    public function addAwayMatch(\StatsBundle\Entity\RealMatch $awayMatch)
+    {
+        $this->away_matches[] = $awayMatch;
+
+        return $this;
+    }
+
+    /**
+     * Remove awayMatch
+     *
+     * @param \StatsBundle\Entity\RealMatch $awayMatch
+     */
+    public function removeAwayMatch(\StatsBundle\Entity\RealMatch $awayMatch)
+    {
+        $this->away_matches->removeElement($awayMatch);
+    }
+
+    /**
+     * Get awayMatches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAwayMatches()
+    {
+        return $this->away_matches;
     }
 }

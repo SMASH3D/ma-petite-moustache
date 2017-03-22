@@ -44,9 +44,9 @@ class SynonymManager
         if ($mainEntity instanceof Player) {
             $synonym->setPlayer($mainEntity);
             $synonym->setActualName($mainEntity->getLastname());
-            $synonym->setTeam($mainEntity->getRealTeam());
+            $synonym->setRealTeam($mainEntity->getRealTeam());
         } else if ($mainEntity instanceof RealTeam) {
-            $synonym->setTeam($mainEntity);
+            $synonym->setRealTeam($mainEntity);
             $synonym->setActualName($mainEntity->getName());
         }
 

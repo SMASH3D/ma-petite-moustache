@@ -14,7 +14,10 @@ StatsBundle\Entity\RealLeague:
             mappedBy: real_league
         real_matches:
             targetEntity: RealMatch
-            mappedBy: real_match
+            mappedBy: real_league
+        players:
+            targetEntity: Player
+            mappedBy: real_league
     fields:
         name:
             type: string
