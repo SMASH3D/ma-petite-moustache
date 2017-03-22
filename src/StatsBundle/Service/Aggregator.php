@@ -8,8 +8,6 @@ use StatsBundle\Entity\RealTeam;
 use StatsBundle\Entity\RealMatch;
 use StatsBundle\Entity\Player;
 use StatsBundle\Entity\PlayerRealMatch;
-use StatsBundle\Repository\PlayerRealMatchRepository;
-use \Doctrine\Common\Collections\Collection;
 
 /**
  * Aggregator

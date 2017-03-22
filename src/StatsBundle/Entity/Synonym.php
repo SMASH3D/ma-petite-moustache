@@ -195,10 +195,4 @@ class Synonym
         return $this->real_team;
     }
 
-    /**
-     * @var \StatsBundle\Entity\RealTeam
-     */
-    private $realTeam;
-
-
 }

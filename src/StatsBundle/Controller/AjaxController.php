@@ -5,6 +5,8 @@ namespace StatsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use StatsBundle\Service\Aggregator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AjaxController
@@ -15,35 +17,13 @@ class AjaxController extends Controller
 {
 
     //######################################## ACTIONS ##########################################
-    /**
-     * Method to get the aggregated data for a player
-     * TODO
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getPlayerInsightAction()
-    {
-        return $this->render('StatsBundle:Ajax:get_player_insight.html.twig', array(
-            // ...
-        ));
-    }
-
-    /**
-     * Method to get the aggregated data for a team
-     * TODO
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getTeamInsightAction()
-    {
-        return $this->render('StatsBundle:Ajax:get_team_insight.html.twig', array(
-            // ...
-        ));
-    }
 
     /**
      * pushMatchDetails action: the chrome extension sends a match summary within a json thing
      * we process them and store aggregated data in the db
+     *
+     * @Route("/pushMatchDetails")
+     * @Method({"POST"})
      *
      * @return JsonResponse
      */
@@ -58,6 +38,9 @@ class AjaxController extends Controller
      * pushWeekSummary action: the chrome extension sends a week summary within a json thing
      * we process them and store aggregated data in the db
      *
+     * @Route("/pushWeekSummary")
+     * @Method({"POST"})
+     *
      * @return JsonResponse
      */
     public function pushWeekSummaryAction()
@@ -70,6 +53,9 @@ class AjaxController extends Controller
     /**
      * pushPlayerQuotations Action : the chrome extension sends a bunch of information
      * for all the players of a given championship within a json thing
+     *
+     * @Route("/pushPlayerQuotations")
+     * @Method({"POST"})
      *
      * @return JsonResponse
      */
