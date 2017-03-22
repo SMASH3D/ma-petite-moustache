@@ -5,8 +5,6 @@ namespace StatsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use StatsBundle\Service\Aggregator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AjaxController
@@ -22,9 +20,6 @@ class AjaxController extends Controller
      * pushMatchDetails action: the chrome extension sends a match summary within a json thing
      * we process them and store aggregated data in the db
      *
-     * @Route("/pushMatchDetails")
-     * @Method({"POST"})
-     *
      * @return JsonResponse
      */
     public function pushMatchDetailsAction()
@@ -38,9 +33,6 @@ class AjaxController extends Controller
      * pushWeekSummary action: the chrome extension sends a week summary within a json thing
      * we process them and store aggregated data in the db
      *
-     * @Route("/pushWeekSummary")
-     * @Method({"POST"})
-     *
      * @return JsonResponse
      */
     public function pushWeekSummaryAction()
@@ -53,9 +45,6 @@ class AjaxController extends Controller
     /**
      * pushPlayerQuotations Action : the chrome extension sends a bunch of information
      * for all the players of a given championship within a json thing
-     *
-     * @Route("/pushPlayerQuotations")
-     * @Method({"POST"})
      *
      * @return JsonResponse
      */

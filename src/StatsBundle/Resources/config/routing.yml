@@ -1,33 +1,15 @@
-stats_player:
-    resource: "@StatsBundle/Resources/config/routing/player.yml"
-    prefix:   /player
-
-stats_homepage:
-    path:     /
-    defaults: { _controller: StatsBundle:Default:index }
-
-stats_realmatch:
-        resource: "@StatsBundle/Resources/config/routing/realmatch.yml"
-        prefix:   /realmatch
-
-stats_realleague:
-        resource: "@StatsBundle/Resources/config/routing/realleague.yml"
-        prefix:   /realleague
-
-stats_realteam:
-        resource: "@StatsBundle/Resources/config/routing/realteam.yml"
-        prefix:   /realteam
-
-
 push_match_details:
     path:     /pushMatchDetails
+    methods: [ post ]
     defaults: { _controller: StatsBundle:Ajax:pushMatchDetails }
 
 push_week_summary:
     path:     /pushWeekSummary
+    methods: [ post ]
     defaults: { _controller: StatsBundle:Ajax:pushWeekSummary }
 
 push_player_quotations:
     path:     /pushPlayerQuotations
+    methods: [ post ]
     defaults: { _controller: StatsBundle:Ajax:pushPlayerQuotations }
 
