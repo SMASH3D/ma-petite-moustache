@@ -38,6 +38,10 @@ StatsBundle\Entity\RealMatch:
         realLeagueId:
             type: integer
             column: real_league_id
+        dataHash:
+            column: data_hash
+            type: string
+            length: 255
         mpgId:
             type: integer
             column: mpg_id

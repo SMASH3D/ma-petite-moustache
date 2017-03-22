@@ -104,6 +104,11 @@ class RealTeam
     private $real_matches;
 
     /**
+     * @var string
+     */
+    private $aggregated_weeks;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $synonyms;
@@ -684,10 +689,6 @@ class RealTeam
     {
         return $this->mpg_id;
     }
-    /**
-     * @var string
-     */
-    private $aggregated_weeks;
 
 
     /**

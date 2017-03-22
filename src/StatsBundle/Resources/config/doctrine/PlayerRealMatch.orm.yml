@@ -89,4 +89,28 @@ StatsBundle\Entity\PlayerRealMatch:
             nullable: true
             options:
                 default: 0
+        wasSuspended:
+            type: boolean
+            column: was_suspended
+            nullable: true
+            options:
+                default: 0
+        wasPreserved:
+            type: boolean
+            column: was_preserved
+            nullable: true
+            options:
+                default: 0
+        wasInjured:
+            type: boolean
+            column: was_injured
+            nullable: true
+            options:
+                default: 0
+        wasUnavailable:
+            type: boolean
+            column: was_unavailable
+            nullable: true
+            options:
+                default: 0
     lifecycleCallbacks: {  }

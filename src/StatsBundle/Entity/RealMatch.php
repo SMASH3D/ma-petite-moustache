@@ -70,20 +70,21 @@ class RealMatch
      * @var integer
      */
     private $awayTeamRank;
+    
+    /**
+     * @var integer
+     */
+    private $season;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $player_real_matches;
+    
     /**
      * @var integer
      */
     private $mpgId;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $real_player_matches;
 
     /**
      * @var \StatsBundle\Entity\RealTeam
@@ -403,7 +404,7 @@ class RealMatch
     /**
      * Add playerRealMatch
      *
-     * @param \StatsBundle\Entity\RealPlayerMatch $playerRealMatch
+     * @param \StatsBundle\Entity\PlayerRealMatch $playerRealMatch
      *
      * @return RealMatch
      */
@@ -457,45 +458,6 @@ class RealMatch
     {
         return $this->mpgId;
     }
-
-    /**
-     * Add realPlayerMatch
-     *
-     * @param \StatsBundle\Entity\PlayerRealMatch $realPlayerMatch
-     *
-     * @return RealMatch
-     */
-    public function addRealPlayerMatch(\StatsBundle\Entity\PlayerRealMatch $realPlayerMatch)
-    {
-        $this->real_player_matches[] = $realPlayerMatch;
-
-        return $this;
-    }
-
-    /**
-     * Remove realPlayerMatch
-     *
-     * @param \StatsBundle\Entity\PlayerRealMatch $realPlayerMatch
-     */
-    public function removeRealPlayerMatch(\StatsBundle\Entity\PlayerRealMatch $realPlayerMatch)
-    {
-        $this->real_player_matches->removeElement($realPlayerMatch);
-    }
-
-    /**
-     * Get realPlayerMatches
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRealPlayerMatches()
-    {
-        return $this->real_player_matches;
-    }
-    /**
-     * @var integer
-     */
-    private $season;
-
 
     /**
      * Set season
@@ -567,5 +529,34 @@ class RealMatch
     public function getAwayTeam()
     {
         return $this->away_team;
+    }
+    /**
+     * @var string
+     */
+    private $dataHash;
+
+
+    /**
+     * Set dataHash
+     *
+     * @param string $dataHash
+     *
+     * @return RealMatch
+     */
+    public function setDataHash($dataHash)
+    {
+        $this->dataHash = $dataHash;
+
+        return $this;
+    }
+
+    /**
+     * Get dataHash
+     *
+     * @return string
+     */
+    public function getDataHash()
+    {
+        return $this->dataHash;
     }
 }

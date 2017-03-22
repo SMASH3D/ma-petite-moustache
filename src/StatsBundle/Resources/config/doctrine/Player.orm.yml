@@ -41,14 +41,11 @@ StatsBundle\Entity\Player:
             nullable: true
         firstname:
             type: string
-            length: 255
             nullable: true
         lastname:
             type: string
-            length: 255
         role:
             type: string
-            length: 255
             nullable: true
         price:
             type: smallint
@@ -58,80 +55,36 @@ StatsBundle\Entity\Player:
         realTeamId:
             type: integer
             column: real_team_id
-        joinedAt:
-            type: datetime
+        yearOfBirth:
+            type: smallint
             nullable: true
-            column: joined_at
-        averageGrade:
+            column: year_of_birth
+        nationality:
+            type: string
+            nullable: true
+        seasonAverageGrade:
             type: float
             nullable: true
-            column: average_grade
+            column: season_average_grade
+        last5AverageGrade:
+            type: float
+            nullable: true
+            column: last_5_average_grade
+        last10AverageGrade:
+            type: float
+            nullable: true
+            column: last_10_average_grade
+        last20AverageGrade:
+            type: float
+            nullable: true
+            column: last_20_average_grade
         averageGradeAllTime:
             type: float
             nullable: true
             column: average_grade_all_time
-        lowestGrade:
-            type: float
-            nullable: true
-            column: lowest_grade
-        highestGrade:
-            type: float
-            nullable: true
-            column: highest_grade
-        mostFrequentGrade:
-            type: float
-            nullable: true
-            column: most_frequent_grade
-        injured:
-            type: boolean
-            nullable: true
-            options:
-                default: 0
-        injuredUntil:
-            type: datetime
-            nullable: true
-            column: injured_until
-        suspended:
-            type: boolean
-            nullable: true
-            options:
-                default: 0
-        suspendedUntilWeek:
-            type: smallint
-            nullable: true
-            column: suspended_until_week
-        seasonGoals:
-            type: smallint
-            column: season_goals
-            nullable: true
-            options:
-                default: 0
-        seasonAssists:
-            type: smallint
-            column: season_assists
-            nullable: true
-            options:
-                default: 0
-        injuriesCount:
-            type: smallint
-            column: injuries_count
-            nullable: true
-            options:
-                default: 0
-        exclusions:
-            type: smallint
-            nullable: true
-            options:
-                default: 0
         seasonYellowCards:
             type: smallint
             column: season_yellow_cards
-            nullable: true
-            options:
-                default: 0
-        seasonRedCards:
-            type: smallint
-            column: season_red_cards
             nullable: true
             options:
                 default: 0
@@ -141,35 +94,27 @@ StatsBundle\Entity\Player:
             nullable: true
             options:
                 default: 0
+        seasonRedCards:
+            type: smallint
+            column: season_red_cards
+            nullable: true
+            options:
+                default: 0
         allTimeRedCards:
             type: smallint
             column: all_time_red_cards
             nullable: true
             options:
                 default: 0
+        seasonGoals:
+            type: smallint
+            column: season_goals
+            nullable: true
+            options:
+                default: 0
         allTimeGoals:
             type: smallint
             column: all_time_goals
-            nullable: true
-            options:
-                default: 0
-        yearOfBirth:
-            type: smallint
-            nullable: true
-            column: year_of_birth
-        leftAt:
-            type: datetime
-            nullable: true
-            column: left_at
-        seasonInjuries:
-            type: smallint
-            column: season_injuries
-            nullable: true
-            options:
-                default: 0
-        allTimeAssists:
-            type: smallint
-            column: all_time_assists
             nullable: true
             options:
                 default: 0
@@ -185,66 +130,108 @@ StatsBundle\Entity\Player:
             nullable: true
             options:
                 default: 0
-        seasonMinutesPlayed:
+        seasonHasStarted:
             type: smallint
-            column: season_minutes_played
+            column: season_has_started
             nullable: true
             options:
                 default: 0
-        allTimeMinutesPlayed:
+        allTimeHasStarted:
             type: smallint
-            column: all_time_minutes_played
+            column: all_time_has_started
             nullable: true
             options:
                 default: 0
-        seasonStarts:
+        seasonHasEntered:
             type: smallint
-            column: season_starts
+            column: season_has_entered
             nullable: true
             options:
                 default: 0
-        seasonEntries:
+        allTimeHasEntered:
             type: smallint
-            column: season_entries
+            column: all_time_has_entered
             nullable: true
             options:
                 default: 0
-        allTimeStarts:
+        injuredUntil:
+            type: string
+            nullable: true
+            column: injured_until
+        seasonInjuries:
             type: smallint
-            column: all_time_starts
+            column: season_injuries
             nullable: true
             options:
                 default: 0
-        allTimeEntries:
+        allTimeInjuries:
             type: smallint
-            column: all_time_entries
+            column: all_time_injuries
             nullable: true
             options:
                 default: 0
-        away:
-            type: boolean
+        seasonSuspensions:
+            type: smallint
+            column: season_suspensions
             nullable: true
             options:
                 default: 0
-        awayUntil:
-            type: datetime
+        allTimeSuspensions:
+            type: smallint
+            column: all_time_suspensions
+            nullable: true
+            options:
+                default: 0
+        suspendedUntil:
+            type: string
+            nullable: true
+            column: suspended_until
+        seasonBenchs:
+            type: smallint
+            column: season_benches
+            nullable: true
+            options:
+                default: 0
+        allTimeBenchs:
+            type: smallint
+            column: all_time_benches
+            nullable: true
+            options:
+                default: 0
+        benchedUntil:
+            type: string
+            nullable: true
+            column: preserved_until
+        seasonExclusions:
+            type: smallint
+            column: season_exclusions
+            nullable: true
+            options:
+                default: 0
+        allTimeExclusions:
+            type: smallint
+            column: all_time_exclusions
+            nullable: true
+            options:
+                default: 0
+        unavailableUntil:
+            type: string
             nullable: true
             column: away_until
-        allTimeUnavailabilityWeeks:
+        seasonUnavailabilities:
             type: smallint
-            column: all_time_unavailability_weeks
-            nullable: true
-        seasonsPlayed:
-            type: smallint
-            column: seasons_played
-            nullable: true
-        nationality:
-            type: string
-            length: 255
-            nullable: true
-        captain:
-            type: boolean
+            column: season_unavailabilities
             nullable: true
             options:
                 default: 0
+        allTimeUnavailabilities:
+            type: smallint
+            column: all_time_unavailabilities
+            nullable: true
+            options:
+                default: 0
+        lastMatches:
+            type: text
+            column: last_matches
+            nullable: true
     lifecycleCallbacks: {  }

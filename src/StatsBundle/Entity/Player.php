@@ -20,7 +20,12 @@ class Player
     /**
      * @var string
      */
-    private $name;
+    private $firstname;
+
+    /**
+     * @var string
+     */
+    private $lastname;
 
     /**
      * @var string
@@ -33,44 +38,39 @@ class Player
     private $realTeamId;
 
     /**
-     * @var \DateTime
+     * @var integer
      */
-    private $joinedAt;
+    private $price;
 
+    /**
+     * @var int
+     */
+    private $seasonHasStarted;
+
+    /**
+     * @var int
+     */
+    private $allTimeHasStarted;
+
+    /**
+     * @var int
+     */
+    private $seasonHasEntered;
+
+    /**
+     * @var int
+     */
+    private $allTimeHasEntered;
+    
     /**
      * @var float
      */
     private $averageGrade;
 
     /**
-     * @var float
-     */
-    private $lowestGrade;
-
-    /**
-     * @var float
-     */
-    private $highestGrade;
-
-    /**
-     * @var float
-     */
-    private $mostFrequentGrade;
-
-    /**
-     * @var bool
-     */
-    private $injured;
-
-    /**
      * @var \DateTime
      */
     private $injuredUntil;
-
-    /**
-     * @var bool
-     */
-    private $suspended;
 
     /**
      * @var \DateTime
@@ -81,31 +81,6 @@ class Player
      * @var int
      */
     private $seasonGoals;
-
-    /**
-     * @var int
-     */
-    private $seasonDecisivePasses;
-
-    /**
-     * @var int
-     */
-    private $injuriesCount;
-
-    /**
-     * @var int
-     */
-    private $exclusions;
-
-    /**
-     * @var int
-     */
-    private $seasonYellowCards;
-
-    /**
-     * @var int
-     */
-    private $seasonRedCards;
 
     /**
      * @var int
@@ -128,21 +103,6 @@ class Player
     private $yearOfBirth;
 
     /**
-     * @var \DateTime
-     */
-    private $leftAt;
-
-    /**
-     * @var int
-     */
-    private $seasonInjuries;
-
-    /**
-     * @var int
-     */
-    private $allTimeDecisivePasses;
-
-    /**
      * @var int
      */
     private $seasonOwnGoals;
@@ -153,64 +113,9 @@ class Player
     private $allTimeOwnGoals;
 
     /**
-     * @var int
-     */
-    private $seasonMinutesPlayed;
-
-    /**
-     * @var int
-     */
-    private $allTimeMinutesPlayed;
-
-    /**
-     * @var int
-     */
-    private $seasonStarts;
-
-    /**
-     * @var int
-     */
-    private $seasonEntries;
-
-    /**
-     * @var int
-     */
-    private $allTimeStarts;
-
-    /**
-     * @var int
-     */
-    private $allTimeEntries;
-
-    /**
-     * @var bool
-     */
-    private $away;
-
-    /**
-     * @var \DateTime
-     */
-    private $awayUntil;
-
-    /**
-     * @var int
-     */
-    private $allTimeUnavailabilityDays;
-
-    /**
-     * @var int
-     */
-    private $seasonsPlayed;
-
-    /**
      * @var string
      */
     private $nationality;
-
-    /**
-     * @var bool
-     */
-    private $captain;
 
     /**
      * @var float
@@ -218,14 +123,110 @@ class Player
     private $averageGradeAllTime;
 
     /**
-     * @var integer
-     */
-    private $suspendedUntilDay;
-    
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $synonyms;
+
+    /**
+     * @var float
+     */
+    private $seasonAverageGrade;
+
+    /**
+     * @var float
+     */
+    private $last5AverageGrade;
+
+    /**
+     * @var float
+     */
+    private $last10AverageGrade;
+
+    /**
+     * @var float
+     */
+    private $last20AverageGrade;
+
+    /**
+     * @var string
+     */
+    private $preservedUntil;
+
+    /**
+     * @var string
+     */
+    private $unavailableUntil;
+
+    /**
+     * @var string
+     */
+    private $lastMatches;
+
+    /**
+     * @var integer
+     */
+    private $seasonYellowCards = 0;
+
+    /**
+     * @var integer
+     */
+    private $seasonRedCards = 0;
+
+
+    /**
+     * @var integer
+     */
+    private $seasonInjuries = 0;
+
+    /**
+     * @var integer
+     */
+    private $allTimeInjuries = 0;
+
+    /**
+     * @var integer
+     */
+    private $seasonSuspensions = 0;
+
+    /**
+     * @var integer
+     */
+    private $allTimeSuspensions = 0;
+
+    /**
+     * @var integer
+     */
+    private $seasonBenchs = 0;
+
+    /**
+     * @var integer
+     */
+    private $allTimeBenchs = 0;
+
+    /**
+     * @var string
+     */
+    private $benchedUntil;
+
+    /**
+     * @var integer
+     */
+    private $seasonExclusions = 0;
+
+    /**
+     * @var integer
+     */
+    private $allTimeExclusions = 0;
+
+    /**
+     * @var string
+     */
+    private $seasonUnavailabilities = 0;
+
+    /**
+     * @var string
+     */
+    private $allTimeUnavailabilities = 0;
 
     /**
      * Get id
@@ -259,30 +260,6 @@ class Player
     public function getRealLeagueId()
     {
         return $this->realLeagueId;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Player
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -334,30 +311,6 @@ class Player
     }
 
     /**
-     * Set joinedAt
-     *
-     * @param \DateTime $joinedAt
-     *
-     * @return Player
-     */
-    public function setJoinedAt($joinedAt)
-    {
-        $this->joinedAt = $joinedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get joinedAt
-     *
-     * @return \DateTime
-     */
-    public function getJoinedAt()
-    {
-        return $this->joinedAt;
-    }
-
-    /**
      * Set averageGrade
      *
      * @param float $averageGrade
@@ -382,105 +335,9 @@ class Player
     }
 
     /**
-     * Set lowestGrade
-     *
-     * @param float $lowestGrade
-     *
-     * @return Player
-     */
-    public function setLowestGrade($lowestGrade)
-    {
-        $this->lowestGrade = $lowestGrade;
-
-        return $this;
-    }
-
-    /**
-     * Get lowestGrade
-     *
-     * @return float
-     */
-    public function getLowestGrade()
-    {
-        return $this->lowestGrade;
-    }
-
-    /**
-     * Set highestGrade
-     *
-     * @param float $highestGrade
-     *
-     * @return Player
-     */
-    public function setHighestGrade($highestGrade)
-    {
-        $this->highestGrade = $highestGrade;
-
-        return $this;
-    }
-
-    /**
-     * Get highestGrade
-     *
-     * @return float
-     */
-    public function getHighestGrade()
-    {
-        return $this->highestGrade;
-    }
-
-    /**
-     * Set mostFrequentGrade
-     *
-     * @param float $mostFrequentGrade
-     *
-     * @return Player
-     */
-    public function setMostFrequentGrade($mostFrequentGrade)
-    {
-        $this->mostFrequentGrade = $mostFrequentGrade;
-
-        return $this;
-    }
-
-    /**
-     * Get mostFrequentGrade
-     *
-     * @return float
-     */
-    public function getMostFrequentGrade()
-    {
-        return $this->mostFrequentGrade;
-    }
-
-    /**
-     * Set injured
-     *
-     * @param boolean $injured
-     *
-     * @return Player
-     */
-    public function setInjured($injured)
-    {
-        $this->injured = $injured;
-
-        return $this;
-    }
-
-    /**
-     * Get injured
-     *
-     * @return bool
-     */
-    public function getInjured()
-    {
-        return $this->injured;
-    }
-
-    /**
      * Set injuredUntil
      *
-     * @param \DateTime $injuredUntil
+     * @param \String $injuredUntil
      *
      * @return Player
      */
@@ -494,7 +351,7 @@ class Player
     /**
      * Get injuredUntil
      *
-     * @return \DateTime
+     * @return \String
      */
     public function getInjuredUntil()
     {
@@ -502,33 +359,9 @@ class Player
     }
 
     /**
-     * Set suspended
-     *
-     * @param boolean $suspended
-     *
-     * @return Player
-     */
-    public function setSuspended($suspended)
-    {
-        $this->suspended = $suspended;
-
-        return $this;
-    }
-
-    /**
-     * Get suspended
-     *
-     * @return bool
-     */
-    public function getSuspended()
-    {
-        return $this->suspended;
-    }
-
-    /**
      * Set suspendedUntil
      *
-     * @param \DateTime $suspendedUntil
+     * @param \String $suspendedUntil
      *
      * @return Player
      */
@@ -542,7 +375,7 @@ class Player
     /**
      * Get suspendedUntil
      *
-     * @return \DateTime
+     * @return \String
      */
     public function getSuspendedUntil()
     {
@@ -574,57 +407,9 @@ class Player
     }
 
     /**
-     * Set seasonDecisivePasses
-     *
-     * @param integer $seasonDecisivePasses
-     *
-     * @return Player
-     */
-    public function setSeasonDecisivePasses($seasonDecisivePasses)
-    {
-        $this->seasonDecisivePasses = $seasonDecisivePasses;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonDecisivePasses
-     *
-     * @return int
-     */
-    public function getSeasonDecisivePasses()
-    {
-        return $this->seasonDecisivePasses;
-    }
-
-    /**
-     * Set injuriesCount
-     *
-     * @param integer $injuriesCount
-     *
-     * @return Player
-     */
-    public function setInjuriesCount($injuriesCount)
-    {
-        $this->injuriesCount = $injuriesCount;
-
-        return $this;
-    }
-
-    /**
-     * Get injuriesCount
-     *
-     * @return int
-     */
-    public function getInjuriesCount()
-    {
-        return $this->injuriesCount;
-    }
-
-    /**
      * Set exclusions
      *
-     * @param integer $exclusions
+     * @param string $exclusions
      *
      * @return Player
      */
@@ -638,59 +423,11 @@ class Player
     /**
      * Get exclusions
      *
-     * @return int
+     * @return string
      */
     public function getExclusions()
     {
         return $this->exclusions;
-    }
-
-    /**
-     * Set seasonYellowCards
-     *
-     * @param integer $seasonYellowCards
-     *
-     * @return Player
-     */
-    public function setSeasonYellowCards($seasonYellowCards)
-    {
-        $this->seasonYellowCards = $seasonYellowCards;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonYellowCards
-     *
-     * @return int
-     */
-    public function getSeasonYellowCards()
-    {
-        return $this->seasonYellowCards;
-    }
-
-    /**
-     * Set seasonRedCards
-     *
-     * @param integer $seasonRedCards
-     *
-     * @return Player
-     */
-    public function setSeasonRedCards($seasonRedCards)
-    {
-        $this->seasonRedCards = $seasonRedCards;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonRedCards
-     *
-     * @return int
-     */
-    public function getSeasonRedCards()
-    {
-        return $this->seasonRedCards;
     }
 
     /**
@@ -790,78 +527,6 @@ class Player
     }
 
     /**
-     * Set leftAt
-     *
-     * @param \DateTime $leftAt
-     *
-     * @return Player
-     */
-    public function setLeftAt($leftAt)
-    {
-        $this->leftAt = $leftAt;
-
-        return $this;
-    }
-
-    /**
-     * Get leftAt
-     *
-     * @return \DateTime
-     */
-    public function getLeftAt()
-    {
-        return $this->leftAt;
-    }
-
-    /**
-     * Set seasonInjuries
-     *
-     * @param integer $seasonInjuries
-     *
-     * @return Player
-     */
-    public function setSeasonInjuries($seasonInjuries)
-    {
-        $this->seasonInjuries = $seasonInjuries;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonInjuries
-     *
-     * @return int
-     */
-    public function getSeasonInjuries()
-    {
-        return $this->seasonInjuries;
-    }
-
-    /**
-     * Set allTimeDecisivePasses
-     *
-     * @param integer $allTimeDecisivePasses
-     *
-     * @return Player
-     */
-    public function setAllTimeDecisivePasses($allTimeDecisivePasses)
-    {
-        $this->allTimeDecisivePasses = $allTimeDecisivePasses;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeDecisivePasses
-     *
-     * @return int
-     */
-    public function getAllTimeDecisivePasses()
-    {
-        return $this->allTimeDecisivePasses;
-    }
-
-    /**
      * Set seasonOwnGoals
      *
      * @param integer $seasonOwnGoals
@@ -910,246 +575,6 @@ class Player
     }
 
     /**
-     * Set seasonMinutesPlayed
-     *
-     * @param integer $seasonMinutesPlayed
-     *
-     * @return Player
-     */
-    public function setSeasonMinutesPlayed($seasonMinutesPlayed)
-    {
-        $this->seasonMinutesPlayed = $seasonMinutesPlayed;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonMinutesPlayed
-     *
-     * @return int
-     */
-    public function getSeasonMinutesPlayed()
-    {
-        return $this->seasonMinutesPlayed;
-    }
-
-    /**
-     * Set allTimeMinutesPlayed
-     *
-     * @param integer $allTimeMinutesPlayed
-     *
-     * @return Player
-     */
-    public function setAllTimeMinutesPlayed($allTimeMinutesPlayed)
-    {
-        $this->allTimeMinutesPlayed = $allTimeMinutesPlayed;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeMinutesPlayed
-     *
-     * @return int
-     */
-    public function getAllTimeMinutesPlayed()
-    {
-        return $this->allTimeMinutesPlayed;
-    }
-
-    /**
-     * Set seasonStarts
-     *
-     * @param integer $seasonStarts
-     *
-     * @return Player
-     */
-    public function setSeasonStarts($seasonStarts)
-    {
-        $this->seasonStarts = $seasonStarts;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonStarts
-     *
-     * @return int
-     */
-    public function getSeasonStarts()
-    {
-        return $this->seasonStarts;
-    }
-
-    /**
-     * Set seasonEntries
-     *
-     * @param integer $seasonEntries
-     *
-     * @return Player
-     */
-    public function setSeasonEntries($seasonEntries)
-    {
-        $this->seasonEntries = $seasonEntries;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonEntries
-     *
-     * @return int
-     */
-    public function getSeasonEntries()
-    {
-        return $this->seasonEntries;
-    }
-
-    /**
-     * Set allTimeStarts
-     *
-     * @param integer $allTimeStarts
-     *
-     * @return Player
-     */
-    public function setAllTimeStarts($allTimeStarts)
-    {
-        $this->allTimeStarts = $allTimeStarts;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeStarts
-     *
-     * @return int
-     */
-    public function getAllTimeStarts()
-    {
-        return $this->allTimeStarts;
-    }
-
-    /**
-     * Set allTimeEntries
-     *
-     * @param integer $allTimeEntries
-     *
-     * @return Player
-     */
-    public function setAllTimeEntries($allTimeEntries)
-    {
-        $this->allTimeEntries = $allTimeEntries;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeEntries
-     *
-     * @return int
-     */
-    public function getAllTimeEntries()
-    {
-        return $this->allTimeEntries;
-    }
-
-    /**
-     * Set away
-     *
-     * @param boolean $away
-     *
-     * @return Player
-     */
-    public function setAway($away)
-    {
-        $this->away = $away;
-
-        return $this;
-    }
-
-    /**
-     * Get away
-     *
-     * @return bool
-     */
-    public function getAway()
-    {
-        return $this->away;
-    }
-
-    /**
-     * Set awayUntil
-     *
-     * @param \DateTime $awayUntil
-     *
-     * @return Player
-     */
-    public function setAwayUntil($awayUntil)
-    {
-        $this->awayUntil = $awayUntil;
-
-        return $this;
-    }
-
-    /**
-     * Get awayUntil
-     *
-     * @return \DateTime
-     */
-    public function getAwayUntil()
-    {
-        return $this->awayUntil;
-    }
-
-    /**
-     * Set allTimeUnavailabilityDays
-     *
-     * @param integer $allTimeUnavailabilityDays
-     *
-     * @return Player
-     */
-    public function setAllTimeUnavailabilityDays($allTimeUnavailabilityDays)
-    {
-        $this->allTimeUnavailabilityDays = $allTimeUnavailabilityDays;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeUnavailabilityDays
-     *
-     * @return int
-     */
-    public function getAllTimeUnavailabilityDays()
-    {
-        return $this->allTimeUnavailabilityDays;
-    }
-
-    /**
-     * Set seasonsPlayed
-     *
-     * @param integer $seasonsPlayed
-     *
-     * @return Player
-     */
-    public function setSeasonsPlayed($seasonsPlayed)
-    {
-        $this->seasonsPlayed = $seasonsPlayed;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonsPlayed
-     *
-     * @return int
-     */
-    public function getSeasonsPlayed()
-    {
-        return $this->seasonsPlayed;
-    }
-
-    /**
      * Set nationality
      *
      * @param string $nationality
@@ -1171,30 +596,6 @@ class Player
     public function getNationality()
     {
         return $this->nationality;
-    }
-
-    /**
-     * Set captain
-     *
-     * @param boolean $captain
-     *
-     * @return Player
-     */
-    public function setCaptain($captain)
-    {
-        $this->captain = $captain;
-
-        return $this;
-    }
-
-    /**
-     * Get captain
-     *
-     * @return bool
-     */
-    public function getCaptain()
-    {
-        return $this->captain;
     }
 
     /**
@@ -1221,29 +622,6 @@ class Player
         return $this->averageGradeAllTime;
     }
 
-    /**
-     * Set suspendedUntilDay
-     *
-     * @param integer $suspendedUntilDay
-     *
-     * @return Player
-     */
-    public function setSuspendedUntilDay($suspendedUntilDay)
-    {
-        $this->suspendedUntilDay = $suspendedUntilDay;
-
-        return $this;
-    }
-
-    /**
-     * Get suspendedUntilDay
-     *
-     * @return integer
-     */
-    public function getSuspendedUntilDay()
-    {
-        return $this->suspendedUntilDay;
-    }
     /**
      * @var \StatsBundle\Entity\RealLeague
      */
@@ -1273,36 +651,6 @@ class Player
     {
         return $this->real_league;
     }
-    /**
-     * @var string
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     */
-    private $lastname;
-
-    /**
-     * @var integer
-     */
-    private $suspendedUntilWeek;
-
-    /**
-     * @var integer
-     */
-    private $seasonAssists;
-
-    /**
-     * @var integer
-     */
-    private $allTimeAssists;
-
-    /**
-     * @var integer
-     */
-    private $allTimeUnavailabilityWeeks;
-
 
     /**
      * Set firstname
@@ -1351,107 +699,6 @@ class Player
     {
         return $this->lastname;
     }
-
-    /**
-     * Set suspendedUntilWeek
-     *
-     * @param integer $suspendedUntilWeek
-     *
-     * @return Player
-     */
-    public function setSuspendedUntilWeek($suspendedUntilWeek)
-    {
-        $this->suspendedUntilWeek = $suspendedUntilWeek;
-
-        return $this;
-    }
-
-    /**
-     * Get suspendedUntilWeek
-     *
-     * @return integer
-     */
-    public function getSuspendedUntilWeek()
-    {
-        return $this->suspendedUntilWeek;
-    }
-
-    /**
-     * Set seasonAssists
-     *
-     * @param integer $seasonAssists
-     *
-     * @return Player
-     */
-    public function setSeasonAssists($seasonAssists)
-    {
-        $this->seasonAssists = $seasonAssists;
-
-        return $this;
-    }
-
-    /**
-     * Get seasonAssists
-     *
-     * @return integer
-     */
-    public function getSeasonAssists()
-    {
-        return $this->seasonAssists;
-    }
-
-    /**
-     * Set allTimeAssists
-     *
-     * @param integer $allTimeAssists
-     *
-     * @return Player
-     */
-    public function setAllTimeAssists($allTimeAssists)
-    {
-        $this->allTimeAssists = $allTimeAssists;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeAssists
-     *
-     * @return integer
-     */
-    public function getAllTimeAssists()
-    {
-        return $this->allTimeAssists;
-    }
-
-    /**
-     * Set allTimeUnavailabilityWeeks
-     *
-     * @param integer $allTimeUnavailabilityWeeks
-     *
-     * @return Player
-     */
-    public function setAllTimeUnavailabilityWeeks($allTimeUnavailabilityWeeks)
-    {
-        $this->allTimeUnavailabilityWeeks = $allTimeUnavailabilityWeeks;
-
-        return $this;
-    }
-
-    /**
-     * Get allTimeUnavailabilityWeeks
-     *
-     * @return integer
-     */
-    public function getAllTimeUnavailabilityWeeks()
-    {
-        return $this->allTimeUnavailabilityWeeks;
-    }
-    /**
-     * @var integer
-     */
-    private $price;
-
 
     /**
      * Set price
@@ -1582,6 +829,30 @@ class Player
     }
 
     /**
+     * Set aggregatedWeeks
+     *
+     * @param string $aggregatedWeeks
+     *
+     * @return RealTeam
+     */
+    public function setAggregatedWeeks($aggregatedWeeks)
+    {
+        $this->aggregated_weeks = $aggregatedWeeks;
+
+        return $this;
+    }
+
+    /**
+     * Get aggregatedWeeks
+     *
+     * @return string
+     */
+    public function getAggregatedWeeks()
+    {
+        return $this->aggregated_weeks;
+    }
+
+    /**
      * Add synonym
      *
      * @param \StatsBundle\Entity\Synonym $synonym
@@ -1613,5 +884,582 @@ class Player
     public function getSynonyms()
     {
         return $this->synonyms;
+    }
+
+    /**
+     * Set seasonAverageGrade
+     *
+     * @param float $seasonAverageGrade
+     *
+     * @return Player
+     */
+    public function setSeasonAverageGrade($seasonAverageGrade)
+    {
+        $this->seasonAverageGrade = $seasonAverageGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonAverageGrade
+     *
+     * @return float
+     */
+    public function getSeasonAverageGrade()
+    {
+        return $this->seasonAverageGrade;
+    }
+
+    /**
+     * Set last5AverageGrade
+     *
+     * @param float $last5AverageGrade
+     *
+     * @return Player
+     */
+    public function setLast5AverageGrade($last5AverageGrade)
+    {
+        $this->last5AverageGrade = $last5AverageGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get last5AverageGrade
+     *
+     * @return float
+     */
+    public function getLast5AverageGrade()
+    {
+        return $this->last5AverageGrade;
+    }
+
+    /**
+     * Set last10AverageGrade
+     *
+     * @param float $last10AverageGrade
+     *
+     * @return Player
+     */
+    public function setLast10AverageGrade($last10AverageGrade)
+    {
+        $this->last10AverageGrade = $last10AverageGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get last10AverageGrade
+     *
+     * @return float
+     */
+    public function getLast10AverageGrade()
+    {
+        return $this->last10AverageGrade;
+    }
+
+    /**
+     * Set last20AverageGrade
+     *
+     * @param float $last20AverageGrade
+     *
+     * @return Player
+     */
+    public function setLast20AverageGrade($last20AverageGrade)
+    {
+        $this->last20AverageGrade = $last20AverageGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get last20AverageGrade
+     *
+     * @return float
+     */
+    public function getLast20AverageGrade()
+    {
+        return $this->last20AverageGrade;
+    }
+
+    /**
+     * Set seasonHasStarted
+     *
+     * @param integer $seasonHasStarted
+     *
+     * @return Player
+     */
+    public function setSeasonHasStarted($seasonHasStarted)
+    {
+        $this->seasonHasStarted = $seasonHasStarted;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonHasStarted
+     *
+     * @return integer
+     */
+    public function getSeasonHasStarted()
+    {
+        return $this->seasonHasStarted;
+    }
+
+    /**
+     * Set allTimeHasStarted
+     *
+     * @param integer $allTimeHasStarted
+     *
+     * @return Player
+     */
+    public function setAllTimeHasStarted($allTimeHasStarted)
+    {
+        $this->allTimeHasStarted = $allTimeHasStarted;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeHasStarted
+     *
+     * @return string
+     */
+    public function getAllTimeHasStarted()
+    {
+        return $this->allTimeHasStarted;
+    }
+
+    /**
+     * Set seasonHasEntered
+     *
+     * @param integer $seasonHasEntered
+     *
+     * @return Player
+     */
+    public function setSeasonHasEntered($seasonHasEntered)
+    {
+        $this->seasonHasEntered = $seasonHasEntered;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonHasEntered
+     *
+     * @return integer
+     */
+    public function getSeasonHasEntered()
+    {
+        return $this->seasonHasEntered;
+    }
+
+    /**
+     * Set allTimeHasEntered
+     *
+     * @param integer $allTimeHasEntered
+     *
+     * @return Player
+     */
+    public function setAllTimeHasEntered($allTimeHasEntered)
+    {
+        $this->allTimeHasEntered = $allTimeHasEntered;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeHasEntered
+     *
+     * @return integer
+     */
+    public function getAllTimeHasEntered()
+    {
+        return $this->allTimeHasEntered;
+    }
+
+    /**
+     * Set preservedUntil
+     *
+     * @param string $preservedUntil
+     *
+     * @return Player
+     */
+    public function setPreservedUntil($preservedUntil)
+    {
+        $this->preservedUntil = $preservedUntil;
+
+        return $this;
+    }
+
+    /**
+     * Get preservedUntil
+     *
+     * @return string
+     */
+    public function getPreservedUntil()
+    {
+        return $this->preservedUntil;
+    }
+
+    /**
+     * Set unavailableUntil
+     *
+     * @param string $unavailableUntil
+     *
+     * @return Player
+     */
+    public function setUnavailableUntil($unavailableUntil)
+    {
+        $this->unavailableUntil = $unavailableUntil;
+
+        return $this;
+    }
+
+    /**
+     * Get unavailableUntil
+     *
+     * @return string
+     */
+    public function getUnavailableUntil()
+    {
+        return $this->unavailableUntil;
+    }
+
+    /**
+     * Set lastMatches
+     *
+     * @param string $lastMatches
+     *
+     * @return Player
+     */
+    public function setLastMatches($lastMatches)
+    {
+        $this->lastMatches = $lastMatches;
+
+        return $this;
+    }
+
+    /**
+     * Get lastMatches
+     *
+     * @return string
+     */
+    public function getLastMatches()
+    {
+        return $this->lastMatches;
+    }
+
+
+    /**
+     * Set seasonYellowCards
+     *
+     * @param integer $seasonYellowCards
+     *
+     * @return Player
+     */
+    public function setSeasonYellowCards($seasonYellowCards)
+    {
+        $this->seasonYellowCards = $seasonYellowCards;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonYellowCards
+     *
+     * @return integer
+     */
+    public function getSeasonYellowCards()
+    {
+        return $this->seasonYellowCards;
+    }
+
+    /**
+     * Set seasonRedCards
+     *
+     * @param integer $seasonRedCards
+     *
+     * @return Player
+     */
+    public function setSeasonRedCards($seasonRedCards)
+    {
+        $this->seasonRedCards = $seasonRedCards;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonRedCards
+     *
+     * @return integer
+     */
+    public function getSeasonRedCards()
+    {
+        return $this->seasonRedCards;
+    }
+
+    /**
+     * Set seasonInjuries
+     *
+     * @param integer $seasonInjuries
+     *
+     * @return Player
+     */
+    public function setSeasonInjuries($seasonInjuries)
+    {
+        $this->seasonInjuries = $seasonInjuries;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonInjuries
+     *
+     * @return integer
+     */
+    public function getSeasonInjuries()
+    {
+        return $this->seasonInjuries;
+    }
+
+    /**
+     * Set allTimeInjuries
+     *
+     * @param integer $allTimeInjuries
+     *
+     * @return Player
+     */
+    public function setAllTimeInjuries($allTimeInjuries)
+    {
+        $this->allTimeInjuries = $allTimeInjuries;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeInjuries
+     *
+     * @return integer
+     */
+    public function getAllTimeInjuries()
+    {
+        return $this->allTimeInjuries;
+    }
+
+    /**
+     * Set seasonSuspensions
+     *
+     * @param integer $seasonSuspensions
+     *
+     * @return Player
+     */
+    public function setSeasonSuspensions($seasonSuspensions)
+    {
+        $this->seasonSuspensions = $seasonSuspensions;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonSuspensions
+     *
+     * @return integer
+     */
+    public function getSeasonSuspensions()
+    {
+        return $this->seasonSuspensions;
+    }
+
+    /**
+     * Set allTimeSuspensions
+     *
+     * @param integer $allTimeSuspensions
+     *
+     * @return Player
+     */
+    public function setAllTimeSuspensions($allTimeSuspensions)
+    {
+        $this->allTimeSuspensions = $allTimeSuspensions;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeSuspensions
+     *
+     * @return integer
+     */
+    public function getAllTimeSuspensions()
+    {
+        return $this->allTimeSuspensions;
+    }
+
+    /**
+     * Set seasonBenchs
+     *
+     * @param integer $seasonBenchs
+     *
+     * @return Player
+     */
+    public function setSeasonBenchs($seasonBenchs)
+    {
+        $this->seasonBenchs = $seasonBenchs;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonBenchs
+     *
+     * @return integer
+     */
+    public function getSeasonBenchs()
+    {
+        return $this->seasonBenchs;
+    }
+
+    /**
+     * Set allTimeBenchs
+     *
+     * @param integer $allTimeBenchs
+     *
+     * @return Player
+     */
+    public function setAllTimeBenchs($allTimeBenchs)
+    {
+        $this->allTimeBenchs = $allTimeBenchs;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeBenchs
+     *
+     * @return integer
+     */
+    public function getAllTimeBenchs()
+    {
+        return $this->allTimeBenchs;
+    }
+
+    /**
+     * Set benchedUntil
+     *
+     * @param string $benchedUntil
+     *
+     * @return Player
+     */
+    public function setBenchedUntil($benchedUntil)
+    {
+        $this->benchedUntil = $benchedUntil;
+
+        return $this;
+    }
+
+    /**
+     * Get benchedUntil
+     *
+     * @return string
+     */
+    public function getBenchedUntil()
+    {
+        return $this->benchedUntil;
+    }
+
+    /**
+     * Set seasonExclusions
+     *
+     * @param integer $seasonExclusions
+     *
+     * @return Player
+     */
+    public function setSeasonExclusions($seasonExclusions)
+    {
+        $this->seasonExclusions = $seasonExclusions;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonExclusions
+     *
+     * @return integer
+     */
+    public function getSeasonExclusions()
+    {
+        return $this->seasonExclusions;
+    }
+
+    /**
+     * Set allTimeExclusions
+     *
+     * @param integer $allTimeExclusions
+     *
+     * @return Player
+     */
+    public function setAllTimeExclusions($allTimeExclusions)
+    {
+        $this->allTimeExclusions = $allTimeExclusions;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeExclusions
+     *
+     * @return integer
+     */
+    public function getAllTimeExclusions()
+    {
+        return $this->allTimeExclusions;
+    }
+
+    /**
+     * Set seasonUnavailabilities
+     *
+     * @param string $seasonUnavailabilities
+     *
+     * @return Player
+     */
+    public function setSeasonUnavailabilities($seasonUnavailabilities)
+    {
+        $this->seasonUnavailabilities = $seasonUnavailabilities;
+
+        return $this;
+    }
+
+    /**
+     * Get seasonUnavailabilities
+     *
+     * @return string
+     */
+    public function getSeasonUnavailabilities()
+    {
+        return $this->seasonUnavailabilities;
+    }
+
+    /**
+     * Set allTimeUnavailabilities
+     *
+     * @param string $allTimeUnavailabilities
+     *
+     * @return Player
+     */
+    public function setAllTimeUnavailabilities($allTimeUnavailabilities)
+    {
+        $this->allTimeUnavailabilities = $allTimeUnavailabilities;
+
+        return $this;
+    }
+
+    /**
+     * Get allTimeUnavailabilities
+     *
+     * @return string
+     */
+    public function getAllTimeUnavailabilities()
+    {
+        return $this->allTimeUnavailabilities;
     }
 }

@@ -9,7 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     stats.aggregator:
         class: StatsBundle\Service\Aggregator
-        arguments: [ "@doctrine.orm.entity_manager"]
+        arguments: [ "@doctrine.orm.entity_manager" , "@stats.synonym_manager"]
     stats.player_manager:
         class: StatsBundle\Service\PlayerManager
         arguments: [ "@doctrine.orm.entity_manager"]

@@ -67,6 +67,49 @@ class PlayerRealMatch
      */
     private $errorsLeadingToGoal;
 
+    /**
+     * @var \StatsBundle\Entity\RealMatch
+     */
+    private $real_match;
+
+    /**
+     * @var integer
+     */
+    private $playerId;
+
+    /**
+     * @var \StatsBundle\Entity\Player
+     */
+    private $player;
+    /**
+     * @var integer
+     */
+    private $realMatchId;
+
+    /**
+     * @var integer
+     */
+    private $ownGoals = 0;
+
+    /**
+     * @var boolean
+     */
+    private $wasSuspended = 0;
+
+    /**
+     * @var boolean
+     */
+    private $wasPreserved = 0;
+
+    /**
+     * @var boolean
+     */
+    private $wasInjured = 0;
+
+    /**
+     * @var boolean
+     */
+    private $wasUnavailable = 0;
 
     /**
      * Get id
@@ -341,11 +384,6 @@ class PlayerRealMatch
     {
         return $this->errorsLeadingToGoal;
     }
-    /**
-     * @var \StatsBundle\Entity\RealMatch
-     */
-    private $real_match;
-
 
     /**
      * Set realMatch
@@ -370,11 +408,6 @@ class PlayerRealMatch
     {
         return $this->real_match;
     }
-    /**
-     * @var integer
-     */
-    private $playerId;
-
 
     /**
      * Set playerId
@@ -399,11 +432,6 @@ class PlayerRealMatch
     {
         return $this->playerId;
     }
-    /**
-     * @var \StatsBundle\Entity\Player
-     */
-    private $player;
-
 
     /**
      * Set player
@@ -428,11 +456,6 @@ class PlayerRealMatch
     {
         return $this->player;
     }
-    /**
-     * @var integer
-     */
-    private $realMatchId;
-
 
     /**
      * Set realMatchId
@@ -457,10 +480,6 @@ class PlayerRealMatch
     {
         return $this->realMatchId;
     }
-    /**
-     * @var integer
-     */
-    private $ownGoals = 0;
 
 
     /**
@@ -485,5 +504,101 @@ class PlayerRealMatch
     public function getOwnGoals()
     {
         return $this->ownGoals;
+    }
+
+    /**
+     * Set wasSuspended
+     *
+     * @param boolean $wasSuspended
+     *
+     * @return PlayerRealMatch
+     */
+    public function setWasSuspended($wasSuspended)
+    {
+        $this->wasSuspended = $wasSuspended;
+
+        return $this;
+    }
+
+    /**
+     * Get wasSuspended
+     *
+     * @return boolean
+     */
+    public function getWasSuspended()
+    {
+        return $this->wasSuspended;
+    }
+
+    /**
+     * Set wasPreserved
+     *
+     * @param boolean $wasPreserved
+     *
+     * @return PlayerRealMatch
+     */
+    public function setWasPreserved($wasPreserved)
+    {
+        $this->wasPreserved = $wasPreserved;
+
+        return $this;
+    }
+
+    /**
+     * Get wasPreserved
+     *
+     * @return boolean
+     */
+    public function getWasPreserved()
+    {
+        return $this->wasPreserved;
+    }
+
+    /**
+     * Set wasInjured
+     *
+     * @param boolean $wasInjured
+     *
+     * @return PlayerRealMatch
+     */
+    public function setWasInjured($wasInjured)
+    {
+        $this->wasInjured = $wasInjured;
+
+        return $this;
+    }
+
+    /**
+     * Get wasInjured
+     *
+     * @return boolean
+     */
+    public function getWasInjured()
+    {
+        return $this->wasInjured;
+    }
+
+    /**
+     * Set wasUnavailable
+     *
+     * @param boolean $wasUnavailable
+     *
+     * @return PlayerRealMatch
+     */
+    public function setWasUnavailable($wasUnavailable)
+    {
+        $this->wasUnavailable = $wasUnavailable;
+
+        return $this;
+    }
+
+    /**
+     * Get wasUnavailable
+     *
+     * @return boolean
+     */
+    public function getWasUnavailable()
+    {
+        return $this->wasUnavailable;
     }
 }
