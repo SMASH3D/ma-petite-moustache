@@ -18,12 +18,13 @@ use StatsBundle\Service\SynonymManager;
  */
 class MergeEntitiesCommand extends ContainerAwareCommand
 {
-    private $_input;
-    private $_output;
-    private $_mainName;
-    private $_secondaryName;
-    private $_em;
-    private $_merge;
+
+    private $input;
+    private $output;
+    private $mainName;
+    private $secondaryName;
+    private $em;
+    private $merge;
 
 
     /**
@@ -64,12 +65,12 @@ class MergeEntitiesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $this->_output = $output;
-        $this->_input = $input;
+        $this->output = $output;
+        $this->input = $input;
 
-        $this->_mainName = $input->getArgument('main_name');
-        $this->_secondaryName = $input->getArgument('synonym');
-        $this->_merge = $input->getArgument('merge') == 'merge';
+        $this->mainName = $input->getArgument('main_name');
+        $this->secondaryName = $input->getArgument('synonym');
+        $this->merge = $input->getArgument('merge') == 'merge';
 
         /** @var  $synonymManager SynonymManager*/
         $synonymManager = $this->getContainer()->get('stats.synonym_manager');
@@ -77,28 +78,28 @@ class MergeEntitiesCommand extends ContainerAwareCommand
         if ($input->getArgument('type') == 'team') {
             /** @var  $manager RealTeamManager*/
             $manager = $this->getContainer()->get('stats.real_team_manager');
-            $mainEntity = $this->getTeam($this->_mainName, 'main');
-            $secondaryEntity = $this->getTeam($this->_secondaryName, 'secondary');
+            $mainEntity = $this->getTeam($this->mainName, 'main');
+            $secondaryEntity = $this->getTeam($this->secondaryName, 'secondary');
             if ($synonymManager->getSynonymFor($secondaryEntity->getName(), $mainEntity->getId()) === null) {
                 $synonymManager->addSynonym($mainEntity, $secondaryEntity->getName());
-                $this->_output->writeln(
+                $this->output->writeln(
                     "<info>Added {$secondaryEntity->getName()} as synonym for {$mainEntity->getName()} {$mainEntity->getName()}</info>"
                 );
             }
         } else {
             /** @var  $manager PlayerManager*/
             $manager = $this->getContainer()->get('stats.player_manager');
-            $mainEntity = $this->choosePlayerAmongHomonyms($this->_mainName, 'main');
-            $secondaryEntity = $this->choosePlayerAmongHomonyms($this->_secondaryName, 'secondary');
+            $mainEntity = $this->choosePlayerAmongHomonyms($this->mainName, 'main');
+            $secondaryEntity = $this->choosePlayerAmongHomonyms($this->secondaryName, 'secondary');
             if ($synonymManager->getSynonymFor($secondaryEntity->getLastname(), $mainEntity->getRealTeam()->getId()) === null) {
                 $synonymManager->addSynonym($mainEntity, $secondaryEntity->getLastname());
-                $this->_output->writeln(
+                $this->output->writeln(
                     "<info>Added {$secondaryEntity->getLastname()} as synonym for {$mainEntity->getFirstname()} {$mainEntity->getLastname()}</info>"
                 );
             }
         }
 
-        if ($this->_merge) {
+        if ($this->merge) {
             $manager->merge($mainEntity, $secondaryEntity);
         }
     }
@@ -113,8 +114,8 @@ class MergeEntitiesCommand extends ContainerAwareCommand
      */
     private function getTeam($name, $usage)
     {
-        $this->_em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $teams = $this->_em
+        $this->em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $teams = $this->em
             ->getRepository('StatsBundle:RealTeam')
             ->createQueryBuilder('t')
             ->where('t.name LIKE :teamname')
@@ -123,10 +124,10 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             ->getResult();
 
         if (count($teams) > 1) {
-            $this->_output->writeln('<comment>There are several matches for the '.$usage.' team named '. $name.'</comment>');
+            $this->output->writeln('<comment>There are several matches for the '.$usage.' team named '. $name.'</comment>');
             foreach ($teams as $key => $t) {
                 /* @var $t RealTeam */
-                $this->_output->writeln(
+                $this->output->writeln(
                     "[$key] ".$t->getName().' [ '. $t->getRealLeague()->getName().' ] '
                 );
 
@@ -139,15 +140,15 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             );
             $question->setErrorMessage('Team #%s is invalid.');
 
-            $teamKey = $helper->ask($this->_input, $this->_output, $question);
-            $this->_output->writeln(
+            $teamKey = $helper->ask($this->input, $this->output, $question);
+            $this->output->writeln(
                 "<info>You have just selected: {$teams[$teamKey]->getName()} as {$usage} team</info>"
             );
             $team = $teams[$teamKey];
         } else if (count($teams) == 1) {
             $team = reset($teams);
         } else {
-            $this->_output->writeln("<error>No player found with a name containing {$name}.</error>");
+            $this->output->writeln("<error>No player found with a name containing {$name}.</error>");
         }
         return $team;
     }
@@ -163,8 +164,8 @@ class MergeEntitiesCommand extends ContainerAwareCommand
     private function choosePlayerAmongHomonyms($playerName, $usage = 'main')
     {
         $player = null;
-        $this->_em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $players = $this->_em
+        $this->em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $players = $this->em
             ->getRepository('StatsBundle:Player')
             ->createQueryBuilder('p')
             ->where('p.lastname LIKE :playerName')
@@ -172,10 +173,10 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             ->getQuery()
             ->getResult();
         if (count($players) > 1) {
-            $this->_output->writeln('<comment>There are several matches for the '.$usage.' player named '. $playerName.'</comment>');
+            $this->output->writeln('<comment>There are several matches for the '.$usage.' player named '. $playerName.'</comment>');
             foreach ($players as $key => $p) {
                 /* @var $p Player */
-                $this->_output->writeln(
+                $this->output->writeln(
                     "[$key] ".$p->getFirstname().' '.
                     $p->getLastname().' '.
                     $p->getRole().' '.
@@ -191,8 +192,8 @@ class MergeEntitiesCommand extends ContainerAwareCommand
             );
             $question->setErrorMessage('Player #%s is invalid.');
 
-            $playerKey = $helper->ask($this->_input, $this->_output, $question);
-            $this->_output->writeln(
+            $playerKey = $helper->ask($this->input, $this->output, $question);
+            $this->output->writeln(
                 '<info>You have just selected: '.
                 $players[$playerKey]->getFirstname().' '.
                 $players[$playerKey]->getLastname()." as {$usage} player</info>"
@@ -201,7 +202,7 @@ class MergeEntitiesCommand extends ContainerAwareCommand
         } else if (count($players) == 1) {
             $player = reset($players);
         } else {
-            $this->_output->writeln('<error>No player found with a name containing '. $playerName.'</error>');
+            $this->output->writeln('<error>No player found with a name containing '. $playerName.'</error>');
         }
         return $player;
     }
